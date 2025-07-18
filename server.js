@@ -12,6 +12,7 @@ import MongoStore from "connect-mongo"
 const port = process.env.PORT
 
 import { defaultRouter } from "./controllers/default.js"
+import { itinerariesRouter } from "./controllers/itineraries.js"
 
 
 /*------------------------------- Connection -------------------------------*/
@@ -40,3 +41,4 @@ app.use(express.static("public"))
 /*--------------------------------- Routes ---------------------------------*/
 
 app.use("/", defaultRouter)
+app.use("/itineraries", itinerariesRouter)

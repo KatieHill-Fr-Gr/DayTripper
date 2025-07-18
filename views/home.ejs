@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to DayTripper</title>
-</head>
-<body>
-        <h1>DayTripper</h1>
-    <h2>What to see, eat, and do in a day<br>
-    in locations around the world</h2>
-</body>
+<% include("./partials/head") %>
+
+    <body>
+        <%- include("./partials/nav.ejs") %>
+            <section id="hero">
+                <h1>What to <em>see</em>, <em>eat</em>, and <em>do</em> in a day<br>
+                    in locations around the world</h1>
+            <a href="/itineraries" class="button-link">View all</a>
+            </section>
+    </body>
+
 </html>
