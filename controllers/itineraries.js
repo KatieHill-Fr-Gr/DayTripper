@@ -35,9 +35,7 @@ router.get('/new', (req, res) => {
 router.post('/', async (req, res, next) => {
     try {
         const newItinerary = await Itinerary.create(req.body)
-        return res.redirect(`/itineraries/${newItinerary._id}`, {
-        title: `${newItinerary._id}`
-    })
+        return res.redirect(`/itineraries/${newItinerary._id}`)
     } catch (error) {
         console.log(error)
         next(error)
