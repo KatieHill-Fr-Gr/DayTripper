@@ -1,10 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
- <% include("../partials/head.ejs") %>
+<% include("../partials/head.ejs") %>
 
-<body>
-    <%- include("../partials/nav.ejs") %>
-        <h1>Itinerary</h1>
-</body>
+    <body>
+        <%- include("../partials/nav.ejs") %>
+            <section id="page-title">
+                <h1>
+                    24 hours in <%= itinerary.destination %>
+                </h1>
+                <h2>By <%= itinerary.contributor %>
+                </h2>
+                <div class="controls">
+                    <a href="/itineraries/<%= itinerary._Id %>/edit" class="button-link"> Edit</a>
+                    <form action="/itineraries/<%= itinerary._id %>?_method=DELETE" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+                </div>
+            </section>
+            <h3>
+                Season: <%= itinerary.timeofYear %>
+            </h3>
+            <ul>
+                <li>
+                    Morning: <%= itinerary.morning %>
+                </li>
+                <li>
+                    Afternoon: <%= itinerary.afternoon %>
+                </li>
+                <li>
+                    Evening: <%= itinerary.evening %>
+                </li>
+            </ul>
+            <p>
+                Comments:
+            </p>
+    </body>
 
 </html>
