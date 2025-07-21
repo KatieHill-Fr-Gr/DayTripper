@@ -3,6 +3,8 @@ import Itinerary from '../models/itinerary.js'
 
 const router = express.Router()
 
+import signedInUser from "../middleware/signed-in-user.js"
+
 
 
 // * Routes
@@ -24,7 +26,7 @@ router.get('/', async (req, res, next) => {
 
 // New
 
-router.get('/new', (req, res) => {
+router.get('/new', signedInUser, (req, res) => {
     res.render('itineraries/new.ejs', {
         title: 'New itinerary'
     })

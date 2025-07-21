@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+ <% include("../partials/head.ejs") %>
+
+<body>
+    <%- include("../partials/nav.ejs") %>
+    <section id="page-title">
+    <h1>Welcome back</h1>
+    <p>Sign in to your acount</p>
+    </section>
+    <form action="/auth/sign-in" method="POST">
+        <table>
+            <tr>
+                <td><label for="username">Username:</label></td>
+                <td><input type="text" name="username" id="username" /></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" name="password" id="password" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button type="submit" class="control-button">Sign in</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <p> Don't have an account yet?
+        <a href="/auth/sign-up">Sign up</a>
+    </p>
+</body>
+
+</html>
