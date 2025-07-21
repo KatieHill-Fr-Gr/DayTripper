@@ -59,3 +59,19 @@ app.use(userMessage);
 app.use('/', defaultRouter)
 app.use('/itineraries', itinerariesRouter)
 app.use('/auth', authRouter)
+
+
+// * Error handlers
+
+
+// 404 Not Found
+app.use((req, res) => {
+    res.status(404).render('404.ejs')
+})
+
+// 500 Error
+
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('An error occurred')
+})
