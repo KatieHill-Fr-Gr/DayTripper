@@ -14,7 +14,7 @@
                 <% allItineraries.forEach(itinerary=> { %>
                     <li>
                         <a href="/itineraries/<%= itinerary.id %>">
-                        <%= itinerary.destination %> by <%= itinerary.contributor %>
+                        <%= itinerary.destination %> by <%= itinerary.contributor.username %>
                         </a>
                     </li>
                 <% }) %>

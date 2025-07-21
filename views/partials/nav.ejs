@@ -10,17 +10,21 @@
 
 <body>
     <nav>
-        <div id="landing-pages">
+        <div id="left-nav">
             <a href="/">DayTripper</a>
             <!-- <a href="/itineraries">itineraries</a> -->
             <!-- SPLIT THIS BY CATEGORY? -->
         </div>
-        <div id="itineraries">
+        <div id="right-nav">
             <a href="/">Europe</a>
             <a href="/">Americas</a>
             <a href="/">Asia</a>
             <a href="/">Africa</a>
-            <a href="/">My profile</a>
+            <% if (user) { %>
+            <a href="/"><%= user.username %></a>
+            <a href="/auth/sign-out" class="button-link">Sign out</a>
+            <% } else { %>
             <a href="/auth/sign-in" class="button-link">Sign in</a>
+            <% } %>
         </div>
     </nav>

@@ -21,7 +21,7 @@ const itinerarySchema = new mongoose.Schema({
     contributor: {
         type: String,
         required: true,
-        // ref: "User"
+        ref: "User"
     },
     timeOfYear: {
         type: String,
@@ -48,11 +48,6 @@ const itinerarySchema = new mongoose.Schema({
 })
 
 
-
-// * Define my model
-
 const Itinerary = mongoose.model('itinerary', itinerarySchema)
-
-// * Export it so that the controllers file can access it
 
 export default Itinerary

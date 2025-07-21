@@ -7,11 +7,6 @@ body {
     font-size: 1rem;
 }
 
-:root {
-    --section-spacing: 2rem;
-}
-
-
 nav {
     background-color: white;
     padding: 0.5rem 1rem;
@@ -21,21 +16,26 @@ nav {
     align-items: center;
 }
 
-#landing-pages {
+#left-nav {
     display: flex;
     gap: 2rem;
     align-items: center;
 }
 
-#itineraries {
+#right-nav {
     display: flex;
     gap: 2rem;
     align-items: center;
+}
+
+:root {
+    --section-spacing: 4rem;
+    --content-padding: 4rem;
 }
 
 section {
     margin-bottom: var(--section-spacing);
-    padding: 0 1rem;
+    padding: 0 var(--section-padding);
 }
 
 #hero {
@@ -43,7 +43,9 @@ section {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 2rem 0;
+    padding: 2rem var(--content-padding);
+    margin-top: 4rem;
+    gap: 2rem;
 }
 
 #page-title {
@@ -52,8 +54,16 @@ section {
     align-items: baseline;
     gap: 1.5rem;
     text-align: left;
-    padding: 3rem 3rem;
+    padding: 1rem var(--content-padding);
+    margin-top: 4rem; 
     border-bottom: 1px solid lightgrey;
+}
+
+.user-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
 }
 
 h1 {
@@ -80,6 +90,17 @@ p {
     padding: 0;
 }
 
+
+#itinerary {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    text-align: left;
+    padding: 0 var(--content-padding);
+}
+
+
 a {
     color: black;
     text-decoration: none;
@@ -91,7 +112,9 @@ a:focus {
     text-decoration: none;
 }
 
-.control-button {    
+a.control-button,
+button.control-button,
+input.control-button {    
     padding: 0.5rem 1rem;
     margin-left: auto;
     background-color: white;
@@ -99,13 +122,15 @@ a:focus {
     text-decoration: none;
     border: 1px solid lightgrey;
     border-radius: 9999px;
-    font-weight: lighter;
+    font-weight: 400;
     font-size: 1rem;
     transition: background-color 0.3s ease;
 }
 
-.control-button:hover {
-    background-color: lightgrey; /* Optional: light beige on hover */
+a.control-button:hover,
+button.control-button:hover,
+input.control-button:hover  {
+    color: lightgrey;
 }
 
 a.button-link {

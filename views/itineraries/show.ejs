@@ -6,34 +6,48 @@
         <%- include("../partials/nav.ejs") %>
             <section id="page-title">
                 <h1>
-                <%= itinerary.destination %>
+                    <%= itinerary.destination %>
                 </h1>
-                <p>By <%= itinerary.contributor %>
+                <p>By <%= itinerary.contributor.username %>
                 </p>
-                <div class="controls">
-                    <a href="/itineraries/<%= itinerary._id %>/edit" class="control-button"> Edit</a>
-                    <form action="/itineraries/<%= itinerary._id %>?_method=DELETE" method="POST">
-                    <button type="submit" class="control-button">Delete</button>
-                </form>
+                <div class="user-actions">
+                    <% if (user && itinerary.contributor.equals(user._id)) { %>
+                        <a href="/itineraries/<%= itinerary._id %>/edit" class="control-button"> Edit</a>
+                        <form action="/itineraries/<%= itinerary._id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="control-button">Delete</button>
+                        </form>
+                        <% } else { %>
+                            <form action="/itineraries/<%= itinerary._id %>/favourited-by/<%= user._id %>"
+                                method="POST">
+                                <button type="submit" class="control-button">Save</button>
+                            </form>
+                            <form action="/itineraries/<%= itinerary._id %>/comment-added-by/<%= user._id %>"
+                                method="POST">
+                                <button type="submit" class="control-button">Comment</button>
+                            </form>
+                            <% } %>
                 </div>
             </section>
-            <h3>
-                 <%= itinerary.timeOfYear %>
-            </h3>
-            <ul>
-                <li>
-                    Morning: <%= itinerary.morning %>
-                </li>
-                <li>
-                    Afternoon: <%= itinerary.afternoon %>
-                </li>
-                <li>
-                    Evening: <%= itinerary.evening %>
-                </li>
-            </ul>
-            <p>
-                Comments:
-            </p>
+            <section id="itinerary">
+                <p><strong>
+                        <%= itinerary.timeOfYear %>
+                    </strong>
+                </p>
+                <ul>
+                    <li>
+                        Morning: <%= itinerary.morning %>
+                    </li>
+                    <li>
+                        Afternoon: <%= itinerary.afternoon %>
+                    </li>
+                    <li>
+                        Evening: <%= itinerary.evening %>
+                    </li>
+                </ul>
+                <p>
+                    Comments:
+                </p>
+            </section>
     </body>
 
 </html>

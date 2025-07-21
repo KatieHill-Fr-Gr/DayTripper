@@ -43,7 +43,12 @@ router.post('/sign-up', async (req, res) => {
         req.body.password = hashedPassword;
 
         const user = await User.create(req.body)
-        req.session.message = 'Welcome back!'
+
+         req.session.user = {
+            username: user.username,
+            _id: user._id
+            //make profle img available too profileImage: user.profileImage
+        }
 
         req.session.save(() => {
             res.redirect('/')
@@ -108,10 +113,14 @@ router.post('/sign-in', async (req, res) => {
 
 // Sign out
 
-router.get('sign-out', (req, res) => {
+router.get('/sign-out', async (req, res) => {
+     try {
     req.session.destroy(()=> {
         res.redirect('/')
     })
+} catch (error) {
+    console.log(error)
+}
 })
 
 

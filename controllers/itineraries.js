@@ -13,7 +13,7 @@ import signedInUser from "../middleware/signed-in-user.js"
 
 router.get('/', async (req, res, next) => {
     try {
-        const itineraries = await Itinerary.find()
+        const itineraries = await Itinerary.find().populate("contributor", "username")
         return res.render('itineraries/index.ejs', { 
             title: 'Itineraries',
             allItineraries: itineraries
@@ -26,16 +26,23 @@ router.get('/', async (req, res, next) => {
 
 // New
 
-router.get('/new', signedInUser, (req, res) => {
+router.get('/new', signedInUser, async (req, res) => {
+    try {
     res.render('itineraries/new.ejs', {
         title: 'New itinerary'
     })
+} catch (error) {
+    next(error)
+}
 })
 
 // Create
 
-router.post('/', async (req, res, next) => {
+router.post('/', signedInUser, async (req, res, next) => {
     try {
+        console.log("Session user:", req.session.user)
+        req.body.contributor = req.session.user._id
+        console.log("Contributor ID being set:", req.body.contributor)
         const newItinerary = await Itinerary.create(req.body)
         return res.redirect(`/itineraries/${newItinerary._id}`)
     } catch (error) {
@@ -50,7 +57,7 @@ router.get('/:itineraryId', async (req, res, next) => {
     console.log("Show route")
     try {
         const { itineraryId } = req.params
-        const itinerary = await Itinerary.findById(itineraryId)
+        const itinerary = await Itinerary.findById(itineraryId).populate("contributor", "username")
         return res.render('itineraries/show.ejs', {
             title: `${itinerary._id}`,
             itinerary
@@ -64,19 +71,19 @@ router.get('/:itineraryId', async (req, res, next) => {
 
 // Edit
 
-router.get('/:itineraryId/edit', async (req, res, next) => {
+router.get('/:itineraryId/edit', signedInUser, async (req, res, next) => {
     console.log('Edit route');
     try {
         const { itineraryId } = req.params
-        console.log("Received itineraryId:", itineraryId);
-
         const itinerary = await Itinerary.findById(itineraryId)
-
-        console.log('Found itinerary:', itinerary);
 
         if (!itinerary) {
             // Handle case if no document found for that id
             return res.status(404).send('Itinerary not found');
+        }
+
+        if (!recipe.contributor.equals(req.session.user._id)) {
+            return res.status(403).send("You can only edit the itineraries you created")
         }
 
         return res.render('itineraries/edit.ejs', { 
@@ -91,7 +98,7 @@ router.get('/:itineraryId/edit', async (req, res, next) => {
 
 // Update
 
-router.put('/:itineraryId', async (req, res, next) => {
+router.put('/:itineraryId', signedInUser, async (req, res, next) => {
     try {
         const { itineraryId } = req.params
         const updatedItinerary = await Itinerary.findById(itineraryId)
@@ -109,7 +116,7 @@ router.put('/:itineraryId', async (req, res, next) => {
 
 // Delete
 
-router.delete('/:itineraryId', async (req, res) => {
+router.delete('/:itineraryId', signedInUser, async (req, res) => {
     try {
         const { itineraryId } = req.params
         const deletedItinerary = await Itinerary.findByIdAndDelete(itineraryId)
