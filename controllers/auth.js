@@ -94,7 +94,7 @@ router.post('/sign-in', async (req, res) => {
         }
 
          req.session.user = {
-            username: userInDatabase.username,
+            username: userInDatabase._id,
             _id: userInDatabase._id
         };
 

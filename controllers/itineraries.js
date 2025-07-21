@@ -14,7 +14,7 @@ import signedInUser from "../middleware/signed-in-user.js"
 router.get('/', async (req, res, next) => {
     try {
         const itineraries = await Itinerary.find().populate("contributor", "username")
-        return res.render('itineraries/index.ejs', { 
+        return res.render('itineraries/index.ejs', {
             title: 'Itineraries',
             allItineraries: itineraries
         })
@@ -28,12 +28,12 @@ router.get('/', async (req, res, next) => {
 
 router.get('/new', signedInUser, async (req, res) => {
     try {
-    res.render('itineraries/new.ejs', {
-        title: 'New itinerary'
-    })
-} catch (error) {
-    next(error)
-}
+        res.render('itineraries/new.ejs', {
+            title: 'New itinerary'
+        })
+    } catch (error) {
+        next(error)
+    }
 })
 
 // Create
@@ -44,6 +44,7 @@ router.post('/', signedInUser, async (req, res, next) => {
         req.body.contributor = req.session.user._id
         console.log("Contributor ID being set:", req.body.contributor)
         const newItinerary = await Itinerary.create(req.body)
+    
         return res.redirect(`/itineraries/${newItinerary._id}`)
     } catch (error) {
         console.log(error)
@@ -78,18 +79,19 @@ router.get('/:itineraryId/edit', signedInUser, async (req, res, next) => {
         const itinerary = await Itinerary.findById(itineraryId)
 
         if (!itinerary) {
-            // Handle case if no document found for that id
             return res.status(404).send('Itinerary not found');
         }
 
-        if (!recipe.contributor.equals(req.session.user._id)) {
-            return res.status(403).send("You can only edit the itineraries you created")
+        console.log("Contributor:", itinerary.contributor); // Why is contributor not an ObjectId?
+
+        if (!itinerary.contributor.equals(req.session.user)) {
+            return res.status(403).send("You can only edit the itineraries you created");
         }
 
-        return res.render('itineraries/edit.ejs', { 
+        return res.render('itineraries/edit.ejs', {
             title: `Edit ${itinerary._id}`,
             itinerary
-         });
+        });
     } catch (error) {
         console.log(error)
         next(error)
