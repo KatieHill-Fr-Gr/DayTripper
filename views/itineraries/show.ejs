@@ -6,19 +6,19 @@
         <%- include("../partials/nav.ejs") %>
             <section id="page-title">
                 <h1>
-                    24 hours in <%= itinerary.destination %>
+                <%= itinerary.destination %>
                 </h1>
-                <h2>By <%= itinerary.contributor %>
-                </h2>
+                <p>By <%= itinerary.contributor %>
+                </p>
                 <div class="controls">
-                    <a href="/itineraries/<%= itinerary._Id %>/edit" class="button-link"> Edit</a>
+                    <a href="/itineraries/<%= itinerary._id %>/edit" class="control-button"> Edit</a>
                     <form action="/itineraries/<%= itinerary._id %>?_method=DELETE" method="POST">
-                    <button type="submit">Delete</button>
+                    <button type="submit" class="control-button">Delete</button>
                 </form>
                 </div>
             </section>
             <h3>
-                Season: <%= itinerary.timeofYear %>
+                 <%= itinerary.timeOfYear %>
             </h3>
             <ul>
                 <li>

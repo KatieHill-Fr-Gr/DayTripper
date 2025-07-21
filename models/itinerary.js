@@ -23,7 +23,10 @@ const itinerarySchema = new mongoose.Schema({
         required: true,
         // ref: "User"
     },
-    timeofYear: String,
+    timeOfYear: {
+        type: String,
+        required: true
+    },
     morning: {
         type: String,
         required: true

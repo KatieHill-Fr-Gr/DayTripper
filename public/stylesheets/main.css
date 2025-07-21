@@ -48,25 +48,36 @@ section {
 
 #page-title {
     display: flex;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem 0;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: 1.5rem;
+    text-align: left;
+    padding: 4rem 2rem;
+    border-bottom: 1px solid lightgrey;
 }
 
 h1 {
     font-family: "Newsreader", serif;
-    font-size: 2rem;
+    font-weight: 400;
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
 }
 
 
 h2 {
     font-family: "Newsreader", serif;
     font-size: 2rem;
+    margin: 0;
+    padding: 0;
+
 }
 
 p {
     font-family: "Inter", sans-serif;
     font-size: 1rem;
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -80,14 +91,21 @@ a:focus {
     text-decoration: none;
 }
 
-button {    
+.control-button {    
     padding: 0.5rem 1rem;
+    margin-left: auto;
     background-color: white;
     color: black;
     text-decoration: none;
-    border-radius: 40%;
+    border: 1px solid lightgrey;
+    border-radius: 9999px;
     font-weight: lighter;
     font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.control-button:hover {
+    background-color: lightgrey; /* Optional: light beige on hover */
 }
 
 a.button-link {
