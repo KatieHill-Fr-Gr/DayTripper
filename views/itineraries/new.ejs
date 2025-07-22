@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
- <% include("../partials/head.ejs") %>
+<% include("../partials/head.ejs") %>
 
-<body>
-    <%- include("../partials/nav.ejs") %>
-        <h1>Create new itinerary</h1>
-        <form action="/itineraries" method="POST">
-        <div>
-            <label for="destination">Destination</label>
-            <input type="text" name="destination" id="name" required>
-        </div>
-        <div>
-            <label for="timeOfYear">Time of year</label>
-            <input type="text" name="timeOfYear" id="timeOfYear" required>
-        </div>
-        <div>
-            <label for="morning">Morning</label>
-            <textarea id="morning" name="morning" required></textarea>
-        </div>
-                <div>
-            <label for="afternoon">Afternoon</label>
-            <textarea id="afternoon" name="afternoon" required></textarea>
-        </div>
-                        <div>
-            <label for="evening">Evening</label>
-            <textarea id="evening" name="evening" required></textarea>
-        </div>
-        <button type="submit" class="button-link">Publish</button>
-    </form>
-</body>
+    <body>
+        <%- include("../partials/nav.ejs") %>
+            <section id="page-title">
+                <h1>Create new itinerary</h1>
+                <div class="user-actions">
+                    <a href="/itineraries" class="control-button">Go back</a>
+                </div>
+            </section>
+            <main class="page-content">
+                <form action="/itineraries" method="POST">
+                    <div>
+                        <label for="destination">Destination</label>
+                        <input type="text" name="destination" id="name" required>
+                    </div>
+                    <div>
+                        <label for="timeOfYear">Time of year</label>
+                        <input type="text" name="timeOfYear" id="timeOfYear" required>
+                    </div>
+                    <div>
+                        <label for="morning">Morning</label>
+                        <textarea id="morning" name="morning" required></textarea>
+                    </div>
+                    <div>
+                        <label for="afternoon">Afternoon</label>
+                        <textarea id="afternoon" name="afternoon" required></textarea>
+                    </div>
+                    <div>
+                        <label for="evening">Evening</label>
+                        <textarea id="evening" name="evening" required></textarea>
+                    </div>
+                    <button type="submit" class="page-button">Publish</button>
+                </form>
+            </main>
+    </body>
 
 </html>

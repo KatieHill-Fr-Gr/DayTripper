@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
- <% include("../partials/head.ejs") %>
+<% include("../partials/head.ejs") %>
 
-<body>
-    <%- include("../partials/nav.ejs") %>
-    <section id="page-title">
-        <h1>Edit your itinerary</h1>
-        </section>
-        <main class="page-content">
-        <form action="/itineraries/<%= itinerary._id%>?_method=PUT" method="POST">
-        <div>
-            <label for="destination">Destination</label>
-            <input type="text" name="name" id="name" required value="<%=itinerary.destination%>">
-        </div>
-        <div>
-            <label for="timeOfYear">Time of year</label>
-            <input type="text" name="timeOfYear" id="timeOfYear" required value="<%=itinerary.timeOfYear%>">
-        </div>
-        <div>
-            <label for="morning">Morning</label>
-            <textarea id="morning" name="morning" required value="<%=itinerary.morning%>"></textarea>
-        </div>
-        <div>
-            <label for="afternoon">Afternoon</label>
-            <textarea id="afternoon" name="afternoon" required value="<%=itinerary.afternoon%>"></textarea>
-        </div>
-        <div>
-            <label for="evening">Evening</label>
-            <textarea id="evening" name="evening" required value="<%=itinerary.evening%>"></textarea>
-        </div>
-        <button type="submit" class="control-button">Update</button>
-    </form>
-    </main>
-</body>
+    <body>
+        <%- include("../partials/nav.ejs") %>
+            <section id="page-title">
+                <h1>Edit your itinerary</h1>
+                <div class="user-actions">
+                    <a href="/itineraries/<%= itinerary._id%>" class="control-button">Go back</a>
+                </div>
+            </section>
+            <main class="page-content">
+                <form action="/itineraries/<%= itinerary._id%>?_method=PUT" method="POST">
+                    <div>
+                        <label for="destination">Destination</label>
+                        <input type="text" name="name" id="name" required value="<%=itinerary.destination%>">
+                    </div>
+                    <div>
+                        <label for="timeOfYear">Time of year</label>
+                        <input type="text" name="timeOfYear" id="timeOfYear" required value="<%=itinerary.timeOfYear%>">
+                    </div>
+                    <div>
+                        <label for="morning">Morning</label>
+                        <textarea id="morning" name="morning" required value="<%=itinerary.morning%>"></textarea>
+                    </div>
+                    <div>
+                        <label for="afternoon">Afternoon</label>
+                        <textarea id="afternoon" name="afternoon" required value="<%=itinerary.afternoon%>"></textarea>
+                    </div>
+                    <div>
+                        <label for="evening">Evening</label>
+                        <textarea id="evening" name="evening" required value="<%=itinerary.evening%>"></textarea>
+                    </div>
+                    <button type="submit" class="page-button">Update</button>
+                </form>
+            </main>
+    </body>
 
 </html>

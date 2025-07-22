@@ -59,11 +59,17 @@ router.get('/:itineraryId', async (req, res, next) => {
         const { itineraryId } = req.params
         const itinerary = await Itinerary.findById(itineraryId).populate("contributor", "username")
 
+        if (!itinerary) {
+            return res.status(404).render('errors/404.ejs', { 
+                title: 'Itinerary Not Found' 
+            })
+        }
+
         return res.render('itineraries/show.ejs', {
             title: `${itinerary._id}`,
             itinerary
         })
-        
+
     } catch (error) {
         console.log(error)
         next(error)

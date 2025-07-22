@@ -76,6 +76,11 @@ main.page-content {
     gap: 2rem;
 }
 
+main.page-content > form {
+  width: 50%;
+}
+
+
 .content-wrapper {
   display: flex;
   gap: 2rem;
@@ -207,7 +212,6 @@ a.control-button,
 button.control-button,
 input.control-button {    
     padding: 0.5rem 1rem;
-    margin-left: auto;
     background-color: white;
     color: black;
     text-decoration: none;
