@@ -21,11 +21,18 @@
             <a href="/">Americas</a>
             <a href="/">Asia</a>
             <a href="/">Africa</a>
-            <% if (user) { %>
-            <a href="/profile"><%= user.username %></a>
-            <a href="/auth/sign-out" class="nav-button">Sign out</a>
-            <% } else { %>
-            <a href="/auth/sign-in" class="nav-button">Sign in</a>
-            <% } %>
+            <% if (message && message.type==='success' ) { %>
+                <div class="flash flash-success">
+                    <%= message.text %>
+                </div>
+                <% } %>
+                    <% if (user) { %>
+                        <a href="/profile">
+                            <%= user.username %>
+                        </a>
+                        <a href="/auth/sign-out" class="nav-button">Sign out</a>
+                        <% } else { %>
+                            <a href="/auth/sign-in" class="nav-button">Sign in</a>
+                            <% } %>
         </div>
     </nav>

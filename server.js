@@ -66,14 +66,17 @@ app.use('/', userRouter)
 // * Error handlers
 
 
-// // 404 Not Found
-// app.use((req, res) => {
-//     res.status(404).render('404.ejs')
-// })
+// 404 Not Found
+app.use((req, res) => {
+  return res.status(404).render('errors/404.ejs', {
+            title: '404 page not found',
+        })
+})
 
-// // 500 Error
-
-// app.use((err, req, res, next) => {
-//     console.error(err.stack)
-//     res.status(500).send('An error occurred')
-// })
+// 500 Error
+app.use((err, req, res, next) => {
+  console.log(err)
+  return res.status(500).render('errors/500.ejs', {
+    title: '500 an error occurred',
+  })
+})

@@ -19,7 +19,6 @@ router.get('/', async (req, res, next) => {
             allItineraries: itineraries
         })
     } catch (error) {
-        console.log(error)
         next(error)
     }
 })
@@ -44,7 +43,7 @@ router.post('/', signedInUser, async (req, res, next) => {
         req.body.contributor = req.session.user._id
         console.log("Contributor ID being set:", req.body.contributor)
         const newItinerary = await Itinerary.create(req.body)
-    
+
         return res.redirect(`/itineraries/${newItinerary._id}`)
     } catch (error) {
         console.log(error)
@@ -59,10 +58,12 @@ router.get('/:itineraryId', async (req, res, next) => {
     try {
         const { itineraryId } = req.params
         const itinerary = await Itinerary.findById(itineraryId).populate("contributor", "username")
+
         return res.render('itineraries/show.ejs', {
             title: `${itinerary._id}`,
             itinerary
         })
+        
     } catch (error) {
         console.log(error)
         next(error)
@@ -83,7 +84,7 @@ router.get('/:itineraryId/edit', signedInUser, async (req, res, next) => {
         }
 
         if (!itinerary.contributor.equals(req.session.user._id)) {
-            return res.status(403).send("You can only edit the itineraries you created");
+            return res.status(403).send('You are not authorized to edit this itinerary');
         }
 
         return res.render('itineraries/edit.ejs', {
@@ -101,7 +102,11 @@ router.get('/:itineraryId/edit', signedInUser, async (req, res, next) => {
 router.put('/:itineraryId', signedInUser, async (req, res, next) => {
     try {
         const { itineraryId } = req.params
-        const updatedItinerary = await Itinerary.findById(itineraryId)
+        const itineraryToUpdate = await Itinerary.findById(itineraryId)
+
+        if (!itineraryToUpdate.contributor.equals(req.session.user._id)) {
+            return res.status(403).send('You are not authorized to edit this itinerary')
+        }
 
         await Itinerary.findByIdAndUpdate(itineraryId, req.body)
 
@@ -119,17 +124,17 @@ router.put('/:itineraryId', signedInUser, async (req, res, next) => {
 router.delete('/:itineraryId', signedInUser, async (req, res) => {
     try {
         const { itineraryId } = req.params
+        const itineraryToDelete = await Itinerary.findById(itineraryId)
 
-        const deletedItinerary = await Itinerary.findByIdAndDelete(itineraryId)
-
-        if (!deletedItinerary.contributor.equals(req.session.user._id)) {
-            return res.status(403).send("You can only delete the itineraries you created");
+        if (!itineraryToDelete.contributor.equals(req.session.user._id)) {
+            return res.status(403).send('You are not authorized to delete this itinerary')
         }
 
-        return res.redirect('/itineraries')
+        await itineraryToDelete.deleteOne();
+        return res.redirect('/itineraries');
 
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 })
 

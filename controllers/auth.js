@@ -14,11 +14,12 @@ import bcrypt from 'bcrypt'
 
 router.get('/sign-up', async (req, res) => {
     try {
-    res.render('auth/sign-up.ejs', {
-        title: 'Create an account'
-    })
+        res.render('auth/sign-up.ejs', {
+            title: 'Create an account',
+            message: res.locals.message
+        })
     } catch (error) {
-        return res.status(404).send('Form not found')
+        return res.status(404).render('errors/404')
     }
 });
 
@@ -28,11 +29,11 @@ router.post('/sign-up', async (req, res) => {
     try {
         if (req.body.username.trim() === '') {
             throw new Error('Username is required')
-        }   
+        }
         if (req.body.password.trim() === '') {
             throw new Error('Password is required')
         }
-        const userInDatabase = await User.findOne ({ username: req.body.username })
+        const userInDatabase = await User.findOne({ username: req.body.username })
         if (userInDatabase) {
             throw new Error('Username already exists')
         }
@@ -44,10 +45,15 @@ router.post('/sign-up', async (req, res) => {
 
         const user = await User.create(req.body)
 
-         req.session.user = {
+        req.session.user = {
             username: user.username,
             _id: user._id
             //make profle img available too profileImage: user.profileImage
+        }
+
+        req.session.message = {
+            type: 'success',
+            text: 'Welcome ',
         }
 
         req.session.save(() => {
@@ -55,7 +61,10 @@ router.post('/sign-up', async (req, res) => {
         })
 
     } catch (error) {
-        req.session.message = error.message
+        req.session.message = {
+            type: 'error',
+            text: error.message,
+        }
         res.redirect('/auth/sign-up')
     }
 });
@@ -63,13 +72,14 @@ router.post('/sign-up', async (req, res) => {
 // Sign-in form
 
 router.get('/sign-in', async (req, res) => {
-     try {
-    res.render('auth/sign-in.ejs', {
-        title: 'Sign in to your account'
-    })
-} catch (error) {
-    console.log(error)
-}
+    try {
+        res.render('auth/sign-in.ejs', {
+            title: 'Sign in to your account',
+            message: res.locals.message
+        })
+    } catch (error) {
+        return res.status(404).render('errors/404')
+    }
 });
 
 // Sign in
@@ -94,7 +104,7 @@ router.post('/sign-in', async (req, res) => {
             throw new Error('Password not recognised. Please try again.');
         }
 
-         req.session.user = {
+        req.session.user = {
             username: userInDatabase.username,
             _id: userInDatabase._id
         };
@@ -102,26 +112,38 @@ router.post('/sign-in', async (req, res) => {
         const redirectTo = req.session.redirectTo || '/'
         delete req.session.redirectTo;
 
+        req.session.message = {
+            type: 'success',
+            text: 'Welcome back ',
+        }
+
         req.session.save(() => {
             res.redirect(redirectTo)
         });
 
     } catch (error) {
-        req.session.message = error.message
-        res.redirect("/auth/sign-in");
+        req.session.message = {
+            type: 'error',
+            text: error.message,
+        }
+        res.redirect('/auth/sign-in')
     }
 })
 
 // Sign out
 
 router.get('/sign-out', async (req, res) => {
-     try {
-    req.session.destroy(()=> {
+    try {
+        req.session.destroy(() => {
+            res.redirect('/')
+        })
+    } catch (error) {
+        req.session.message = {
+            type: 'error',
+            text: 'There was a problem signing you out. Please try again.',
+        }
         res.redirect('/')
-    })
-} catch (error) {
-    console.log(error)
-}
+    }
 })
 
 

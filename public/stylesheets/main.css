@@ -225,28 +225,18 @@ input.control-button:hover  {
 }
 
 .flash {
-  padding: 1rem 1.5rem;
-  margin: 1rem 0;
-  border-radius: 0.75rem;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-weight: 400;
   transition: opacity 0.3s ease;
 }
 
 .flash-success {
-  background: #e6f7ec;
-  color: #2f7a4e;
-  border: 1px solid #b6e2c1;
+  color: #4c949a;
 }
 
 .flash-error {
-  background: #fdecea;
   color: #b00020;
-  border: 1px solid #f5c6cb;
 }
 
 .flash-warning {
-  background: #fff4e5;
   color: #b36b00;
-  border: 1px solid #ffd089;
 }

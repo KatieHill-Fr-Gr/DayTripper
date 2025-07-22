@@ -9,32 +9,32 @@
                 <p>Sign in to your acount</p>
             </section>
             <main class="page-content">
-            <% if (typeof message !=='undefined' ) { %>
-                <p>
-                    <%= message %>
-                </p>
-                <% } %>
-                    <form action="/auth/sign-in" method="POST">
-                        <table>
-                            <tr>
-                                <td><label for="username">Username</label></td>
-                                <td><input type="text" name="username" id="username" /></td>
-                            </tr>
-                            <tr>
-                                <td><label for="password">Password</label></td>
-                                <td><input type="password" name="password" id="password" /></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="text-align: center;">
-                                    <button type="submit" class="page-button">Sign in</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </form>
-                    <p> Don't have an account yet?
-                        <a href="/auth/sign-up" class="page-link">Sign up</a>
-                    </p>
-                    </main>
+                <% if (message && message.type==='error' ) { %>
+                    <div class="flash flash-error">
+                        <%= message.text %>
+                    </div>
+                    <% } %>
+                        <form action="/auth/sign-in" method="POST">
+                            <table>
+                                <tr>
+                                    <td><label for="username">Username</label></td>
+                                    <td><input type="text" name="username" id="username" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="password">Password</label></td>
+                                    <td><input type="password" name="password" id="password" /></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center;">
+                                        <button type="submit" class="page-button">Sign in</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                        <p> Don't have an account yet?
+                            <a href="/auth/sign-up" class="page-link">Sign up</a>
+                        </p>
+            </main>
     </body>
 
 </html>
