@@ -17,14 +17,8 @@
                             <button type="submit" class="control-button">Delete</button>
                         </form>
                         <% } else { %>
-                            <form action="/itineraries/<%= itinerary._id %>/favourited-by/<%= user._id %>"
-                                method="POST">
                                 <button type="submit" class="control-button">Save</button>
-                            </form>
-                            <form action="/itineraries/<%= itinerary._id %>/comment-added-by/<%= user._id %>"
-                                method="POST">
                                 <button type="submit" class="control-button">Comment</button>
-                            </form>
                             <% } %>
                 </div>
             </section>
