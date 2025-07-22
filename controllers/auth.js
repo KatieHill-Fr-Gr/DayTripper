@@ -55,6 +55,7 @@ router.post('/sign-up', async (req, res) => {
         })
 
     } catch (error) {
+        req.session.message = error.message
         res.redirect('/auth/sign-up')
     }
 });

@@ -17,31 +17,38 @@
                             <button type="submit" class="control-button">Delete</button>
                         </form>
                         <% } else { %>
-                                <button type="submit" class="control-button">Save</button>
-                                <button type="submit" class="control-button">Comment</button>
+                            <button type="submit" class="control-button">Save</button>
+                            <button type="submit" class="control-button">Comment</button>
                             <% } %>
                 </div>
             </section>
-            <section id="itinerary">
-                <p><strong>
-                        <%= itinerary.timeOfYear %>
-                    </strong>
-                </p>
-                <ul>
-                    <li>
-                        Morning: <%= itinerary.morning %>
-                    </li>
-                    <li>
-                        Afternoon: <%= itinerary.afternoon %>
-                    </li>
-                    <li>
-                        Evening: <%= itinerary.evening %>
-                    </li>
-                </ul>
-                <p>
-                    Comments:
-                </p>
-            </section>
+            <main class="page-content">
+                <div class="content-wrapper">
+                    <div class="text-column">
+                        <p><strong>
+                                <%= itinerary.timeOfYear %>
+                            </strong>
+                        </p>
+                        <ul>
+                            <li>
+                                Morning: <%= itinerary.morning %>
+                            </li>
+                            <li>
+                                Afternoon: <%= itinerary.afternoon %>
+                            </li>
+                            <li>
+                                Evening: <%= itinerary.evening %>
+                            </li>
+                        </ul>
+                        <p>
+                            Comments:
+                        </p>
+                    </div>
+                    <div class="image-column">
+                    <!-- <img src="your-image.jpg" alt="Descriptive alt text"> -->
+                    </div>
+                </div>
+            </main>
     </body>
 
 </html>

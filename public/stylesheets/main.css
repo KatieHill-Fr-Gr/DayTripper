@@ -66,6 +66,47 @@ section {
     gap: 0.5rem;
 }
 
+main.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 2rem var(--content-padding);
+    margin-top: 4rem;
+    gap: 2rem;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: flex-start; /* optional depending on layout */
+}
+
+.text-column,
+.image-column {
+  flex: 1; /* makes both columns take equal width (50%) */
+}
+
+.text-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.image-column img {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* optional depending on your needs */
+  border-radius: 1rem; /* optional: for style */
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+}
+
 h1 {
     font-family: "Newsreader", serif;
     font-weight: 400;
@@ -90,17 +131,6 @@ p {
     padding: 0;
 }
 
-
-#itinerary {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1.5rem;
-    text-align: left;
-    padding: 0 var(--content-padding);
-}
-
-
 a {
     color: black;
     text-decoration: none;
@@ -108,13 +138,69 @@ a {
 
 a:hover,
 a:focus {
-    color: turquoise;
+    color: #4c949a;
     text-decoration: none;
 }
 
 a.page-link {
-    color: turquoise;
+    color: #4c949a;
     text-decoration: none;
+}
+
+a.nav-button {
+    padding: 0.5rem 1rem;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 400;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+a.nav-button:hover {
+    color: white;
+    background-color:#4c949a;
+}
+
+a.page-button,
+button.page-button,
+input.page-button {
+    padding: 0.5rem 1rem;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: none;
+    font-weight: 400;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+a.page-button:hover,
+button.page-button:hover,
+input.page-button:hover {
+    color: white;
+    background-color:#4c949a;
+}
+
+
+a.homepage-button {
+    padding: 0.5rem 1rem;
+    background-color: #4c949a;
+    color: white;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: none;
+    font-weight: 400;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+
+}
+
+a.homepage-button:hover {
+    color: white;
+    background-color:#4c949a;
 }
 
 a.control-button,
@@ -138,38 +224,29 @@ input.control-button:hover  {
     color: lightgrey;
 }
 
-a.nav-button {
-    padding: 0.5rem 1rem;
-    background-color: black;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: lighter;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+.flash {
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: opacity 0.3s ease;
 }
 
-a.nav-button:hover {
-    color: white;
-    background-color: turquoise;
+.flash-success {
+  background: #e6f7ec;
+  color: #2f7a4e;
+  border: 1px solid #b6e2c1;
 }
 
-a.page-button,
-button.page-button,
-input.page-button {
-    padding: 0.5rem 1rem;
-    background-color: black;
-    color: white;
-    text-decoration: none;
-    border-radius: 9999px;
-    font-weight: lighter;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+.flash-error {
+  background: #fdecea;
+  color: #b00020;
+  border: 1px solid #f5c6cb;
 }
 
-a.page-button:hover,
-button.page-button:hover,
-input.page-button:hover {
-    color: white;
-    background-color: turquoise;
+.flash-warning {
+  background: #fff4e5;
+  color: #b36b00;
+  border: 1px solid #ffd089;
 }

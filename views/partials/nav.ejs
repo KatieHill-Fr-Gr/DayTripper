@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DayTripper</title>
     <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/form.css">
 </head>
 
 <body>
@@ -22,9 +23,9 @@
             <a href="/">Africa</a>
             <% if (user) { %>
             <a href="/profile"><%= user.username %></a>
-            <a href="/auth/sign-out" class="button-link">Sign out</a>
+            <a href="/auth/sign-out" class="nav-button">Sign out</a>
             <% } else { %>
-            <a href="/auth/sign-in" class="button-link">Sign in</a>
+            <a href="/auth/sign-in" class="nav-button">Sign in</a>
             <% } %>
         </div>
     </nav>
