@@ -112,6 +112,11 @@ a:focus {
     text-decoration: none;
 }
 
+a.page-link {
+    color: turquoise;
+    text-decoration: none;
+}
+
 a.control-button,
 button.control-button,
 input.control-button {    
@@ -133,7 +138,7 @@ input.control-button:hover  {
     color: lightgrey;
 }
 
-a.button-link {
+a.nav-button {
     padding: 0.5rem 1rem;
     background-color: black;
     color: white;
@@ -144,7 +149,27 @@ a.button-link {
     transition: background-color 0.3s ease;
 }
 
-a.button-link:hover {
+a.nav-button:hover {
+    color: white;
+    background-color: turquoise;
+}
+
+a.page-button,
+button.page-button,
+input.page-button {
+    padding: 0.5rem 1rem;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 9999px;
+    font-weight: lighter;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+a.page-button:hover,
+button.page-button:hover,
+input.page-button:hover {
     color: white;
     background-color: turquoise;
 }

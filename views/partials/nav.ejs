@@ -21,7 +21,7 @@
             <a href="/">Asia</a>
             <a href="/">Africa</a>
             <% if (user) { %>
-            <a href="/"><%= user.username %></a>
+            <a href="/profile"><%= user.username %></a>
             <a href="/auth/sign-out" class="button-link">Sign out</a>
             <% } else { %>
             <a href="/auth/sign-in" class="button-link">Sign in</a>

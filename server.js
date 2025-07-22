@@ -14,6 +14,7 @@ const port = process.env.PORT
 import { defaultRouter } from './controllers/default.js'
 import { itinerariesRouter } from './controllers/itineraries.js'
 import { authRouter } from './controllers/auth.js'
+import { userRouter } from './controllers/user.js'
 
 import passUserToView from "./middleware/pass-user-to-view.js"
 import userMessage from "./middleware/user-messages.js"
@@ -59,19 +60,20 @@ app.use(userMessage);
 app.use('/', defaultRouter)
 app.use('/itineraries', itinerariesRouter)
 app.use('/auth', authRouter)
+app.use('/', userRouter)
 
 
 // * Error handlers
 
 
-// 404 Not Found
-app.use((req, res) => {
-    res.status(404).render('404.ejs')
-})
+// // 404 Not Found
+// app.use((req, res) => {
+//     res.status(404).render('404.ejs')
+// })
 
-// 500 Error
+// // 500 Error
 
-app.use((err, req, res, next) => {
-    console.error(err.stack)
-    res.status(500).send('An error occurred')
-})
+// app.use((err, req, res, next) => {
+//     console.error(err.stack)
+//     res.status(500).send('An error occurred')
+// })

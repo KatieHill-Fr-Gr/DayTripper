@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
- <% include("../partials/head.ejs") %>
+<% include("../partials/head.ejs") %>
 
-<body>
-    <%- include("../partials/nav.ejs") %>
-    <section id="page-title">
-        <h1>Create your account</h1>
+    <body>
+        <%- include("../partials/nav.ejs") %>
+            <section id="page-title">
+                <h1>Create your account</h1>
             </section>
-          <form action="/auth/sign-up" method="POST">
-    <table>
-      <tr>
-        <td><label for="username">Username:</label></td>
-        <td><input type="text" name="username" id="username" /></td>
-      </tr>
-      <tr>
-        <td><label for="password">Password:</label></td>
-        <td><input type="password" name="password" id="password" /></td>
-      </tr>
-      <tr>
-        <td><label for="confirmPassword">Confirm Password:</label></td>
-        <td><input type="password" name="confirmPassword" id="confirmPassword" /></td>
-      </tr>
-      <tr>
-        <td colspan="2" style="text-align: center;">
-          <button type="submit" class="control-button">Sign up</button>
-        </td>
-      </tr>
-    </table>
-  </form>
-
-</body>
+            <% if (typeof message !=='undefined' ) { %>
+                <p>
+                    <%= message %>
+                </p>
+                <% } %>
+                    <form action="/auth/sign-up" method="POST">
+                        <table>
+                            <tr>
+                                <td><label for="username">Username:</label></td>
+                                <td><input type="text" name="username" id="username" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="password">Password:</label></td>
+                                <td><input type="password" name="password" id="password" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="confirmPassword">Confirm Password:</label></td>
+                                <td><input type="password" name="confirmPassword" id="confirmPassword" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center;">
+                                    <button type="submit" class="control-button">Sign up</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+            <p> Already have an account?
+                <a href="/auth/sign-in" class="page-link">Sign in</a>
+            </p>
+    </body>
 
 </html>

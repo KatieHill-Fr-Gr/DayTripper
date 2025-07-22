@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+ <% include("../partials/head.ejs") %>
+
+<body>
+    <%- include("../partials/nav.ejs") %>
+    <section id="page-title">
+    <h1><%= user.username %></h1>
+    </section>
+    <h2>My itineraries</h2>
+        <ul>
+            <% myItineraries.forEach(itinerary => { %>
+                <li>
+                    <a href="/itineraries/<%= itinerary._id %>">
+                        <%= itinerary.destination %>
+                    </a>
+                </li>
+                <% }) %>
+        </ul>
+
+</body>
+
+</html>

@@ -82,9 +82,7 @@ router.get('/:itineraryId/edit', signedInUser, async (req, res, next) => {
             return res.status(404).send('Itinerary not found');
         }
 
-        console.log("Contributor:", itinerary.contributor); // Why is contributor not an ObjectId?
-
-        if (!itinerary.contributor.equals(req.session.user)) {
+        if (!itinerary.contributor.equals(req.session.user._id)) {
             return res.status(403).send("You can only edit the itineraries you created");
         }
 
@@ -121,9 +119,15 @@ router.put('/:itineraryId', signedInUser, async (req, res, next) => {
 router.delete('/:itineraryId', signedInUser, async (req, res) => {
     try {
         const { itineraryId } = req.params
+
         const deletedItinerary = await Itinerary.findByIdAndDelete(itineraryId)
-        console.log(`Deleted ${deletedItinerary}`)
+
+        if (!deletedItinerary.contributor.equals(req.session.user._id)) {
+            return res.status(403).send("You can only delete the itineraries you created");
+        }
+
         return res.redirect('/itineraries')
+
     } catch (error) {
         console.log(error)
     }
