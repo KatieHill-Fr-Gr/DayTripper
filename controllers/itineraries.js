@@ -184,10 +184,12 @@ router.delete('/:itineraryId/liked-by/:userId', signedInUser, async (req, res, n
     try {
         const { itineraryId, userId } = req.params
 
-        if (req.session.user._id !== userId) return res.status(403).send('You are not authorized to unsave this itinerary')
+        if (req.session.user._id !== userId) {
+            return res.status(403).send('You are not authorized to unsave this itinerary')
+        }
 
         await Itinerary.findByIdAndUpdate(itineraryId, {
-            $pull: { likedByUsers: userId }
+            $pull: { likedbyUsers: userId }
         })
 
         return res.redirect(`/itineraries/${itineraryId}`)
