@@ -17,9 +17,21 @@
                             <button type="submit" class="control-button">Delete</button>
                         </form>
                         <% } else { %>
-                            <button type="submit" class="control-button">Save</button>
-                            <button type="submit" class="control-button">Comment</button>
-                            <% } %>
+                            <% if (user) { %>
+                                <% if (userHasLiked) { %>
+                                    <form
+                                        action="/itineraries/<%= itinerary._id %>/liked-by/<%= user._id %>?_method=DELETE"
+                                        method="POST">
+                                        <button type="submit" class="control-button">Unsave</button>
+                                    </form>
+                                    <% } else { %>
+                                        <form action="/itineraries/<%= itinerary._id %>/liked-by/<%= user._id %>"
+                                            method="POST">
+                                            <button type="submit" class="control-button">Save</button>
+                                        </form>
+                                        <% } %>
+                                            <% } %>
+                                             <% } %>
                 </div>
             </section>
             <main class="page-content">
@@ -45,7 +57,7 @@
                         </p>
                     </div>
                     <div class="image-column">
-                    <img src="<%= itinerary.image %>" alt="Descriptive alt text">
+                        <img src="<%= itinerary.image %>" alt="Descriptive alt text">
                     </div>
                 </div>
             </main>

@@ -16,9 +16,14 @@ router.get('/profile', signedInUser, async (req, res, next) => {
             contributor: req.session.user._id,
         }).populate('contributor')
 
+        const likedItineraries = await Itinerary.find({
+            likedbyUsers: req.session.user._id,
+        }).populate('contributor')
+
         res.render('user/profile.ejs', {
             title: `${req.session.user?.username || 'User'}'s profile`,
             myItineraries,
+            likedItineraries,
             message: res.locals.message,
             user: req.session.user
         })

@@ -24,6 +24,20 @@
                         </li>
                         <% }) %>
                 </ul>
+                <h2>Saved</h2>
+                <% if (likedItineraries.length===0) { %>
+                    <p>You haven't saved any itineraries yet</p>
+                    <% } %>
+                        <ul>
+                            <% likedItineraries.forEach(itinerary=> { %>
+                                <li>
+                                    <a href="/itineraries/<%= itinerary._id %>">
+                                        <%= itinerary.destination %>
+                                    </a>
+                                </li>
+                                <% }) %>
+                        </ul>
+                        </ul>
             </main>
     </body>
 

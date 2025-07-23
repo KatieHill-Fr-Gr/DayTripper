@@ -72,9 +72,15 @@ router.get('/:itineraryId', async (req, res, next) => {
             })
         }
 
+        const userHasLiked = itinerary.likedbyUsers.some(likedId => {
+            return likedId.equals(req.session.user._id)
+        })
+
+
         return res.render('itineraries/show.ejs', {
             title: `${itinerary._id}`,
-            itinerary
+            itinerary,
+            userHasLiked
         })
 
     } catch (error) {
@@ -146,6 +152,45 @@ router.delete('/:itineraryId', signedInUser, async (req, res) => {
         await itineraryToDelete.deleteOne();
         return res.redirect('/itineraries');
 
+    } catch (error) {
+        next(error)
+    }
+})
+
+
+// Like
+
+router.post('/:itineraryId/liked-by/:userId', signedInUser, async (req, res, next) => {
+    try {
+        const { itineraryId, userId } = req.params
+
+        if (req.session.user._id !== userId) {
+            return res.status(403).send('You are not authorized to save this itinerary')
+        }
+
+        await Itinerary.findByIdAndUpdate(itineraryId, {
+            $push: { likedbyUsers: userId }
+        })
+
+        return res.redirect(`/itineraries/${itineraryId}`)
+    } catch (error) {
+        next(error)
+    }
+})
+
+// Unlike
+
+router.delete('/:itineraryId/liked-by/:userId', signedInUser, async (req, res, next) => {
+    try {
+        const { itineraryId, userId } = req.params
+
+        if (req.session.user._id !== userId) return res.status(403).send('You are not authorized to unsave this itinerary')
+
+        await Itinerary.findByIdAndUpdate(itineraryId, {
+            $pull: { likedByUsers: userId }
+        })
+
+        return res.redirect(`/itineraries/${itineraryId}`)
     } catch (error) {
         next(error)
     }
