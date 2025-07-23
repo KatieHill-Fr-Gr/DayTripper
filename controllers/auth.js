@@ -2,11 +2,11 @@ import express from 'express'
 const router = express.Router()
 
 import User from '../models/user.js'
+import { upload } from '../utilities/cloudinary.js'
+import cloudinaryUpload from '../utilities/cloudinaryUpload.js'
 
 import bcrypt from 'bcrypt'
 
-// import { upload } from "../utils/cloudinary.js"
-// import cloundinaryUpload from "../utils/cloudinaryUpload.js"
 
 // * Routes
 
@@ -25,7 +25,9 @@ router.get('/sign-up', async (req, res) => {
 
 // Create account
 
-router.post('/sign-up', async (req, res) => {
+router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
+    console.log('req.file:', req.file);
+    console.log('req.body:', req.body);
     try {
         if (req.body.username.trim() === '') {
             throw new Error('Username is required')
@@ -43,12 +45,21 @@ router.post('/sign-up', async (req, res) => {
         const hashedPassword = bcrypt.hashSync(req.body.password, 10)
         req.body.password = hashedPassword;
 
+        if (req.file && req.file.buffer) {
+            console.log(`Uploading file of size ${req.file.size}`);
+            const result = await cloudinaryUpload(req.file.buffer);
+            req.body.profileImage = result.secure_url;
+        } else {
+            console.error('Cloudinary upload failed:', error);
+            req.body.profileImage = 'https://ui-avatars.com/api/?background=4c949a&color=fff';
+        }
+
         const user = await User.create(req.body)
 
         req.session.user = {
             username: user.username,
-            _id: user._id
-            //make profle img available too profileImage: user.profileImage
+            _id: user._id,
+            profileImage: user.profileImage
         }
 
         req.session.message = {

@@ -13,7 +13,7 @@
                         <%= message.text %>
                     </div>
                     <% } %>
-                        <form action="/auth/sign-up" method="POST">
+                        <form action="/auth/sign-up" method="POST" enctype="multipart/form-data">
                             <table>
                                 <tr>
                                     <td><label for="username">Username:</label></td>
@@ -26,6 +26,17 @@
                                 <tr>
                                     <td><label for="confirmPassword">Confirm Password:</label></td>
                                     <td><input type="password" name="confirmPassword" id="confirmPassword" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="profile-image">Upload profile image:</label></td>
+                                    <td>
+                                        <div class="file-upload-wrapper">
+                                            <input type="file" id="profile-image" accept="image/*">
+                                            <label for="profile-image" class="custom-file-upload">
+                                                <span class="file-name" id="file-name"></span>
+                                            </label>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="text-align: center;">

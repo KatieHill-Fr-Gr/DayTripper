@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profileImage: {
+    type: String, // Cloudinary URL
+    required: false,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

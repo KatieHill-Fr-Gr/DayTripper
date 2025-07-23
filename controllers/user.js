@@ -19,7 +19,8 @@ router.get('/profile', signedInUser, async (req, res, next) => {
         res.render('user/profile.ejs', {
             title: `${req.session.user?.username || 'User'}'s profile`,
             myItineraries,
-            message: res.locals.message
+            message: res.locals.message,
+            user: req.session.user
         })
     } catch (error) {
         res.redirect('/')

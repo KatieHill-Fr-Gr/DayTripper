@@ -244,3 +244,11 @@ input.control-button:hover  {
 .flash-warning {
   color: #b36b00;
 }
+
+.profile-pic {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
