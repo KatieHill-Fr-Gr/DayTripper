@@ -53,7 +53,7 @@ select {
   padding: 0.75rem 1rem;
   margin-bottom: 1.25rem;
   border-radius: 999px;
-  border: 1px solid rgb(156, 136, 136);
+  border: 1px solid lightgrey;
   outline: none;
   font-size: 1rem;
   width: 100%;

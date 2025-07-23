@@ -26,8 +26,6 @@ router.get('/sign-up', async (req, res) => {
 // Create account
 
 router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
-    console.log('req.file:', req.file);
-    console.log('req.body:', req.body);
     try {
         if (req.body.username.trim() === '') {
             throw new Error('Username is required')
@@ -46,7 +44,6 @@ router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
         req.body.password = hashedPassword;
 
         if (req.file && req.file.buffer) {
-            console.log(`Uploading file of size ${req.file.size}`);
             const result = await cloudinaryUpload(req.file.buffer);
             req.body.profileImage = result.secure_url;
         } else {
@@ -72,6 +69,7 @@ router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
         })
 
     } catch (error) {
+        console.log(error)
         req.session.message = {
             type: 'error',
             text: error.message,

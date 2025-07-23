@@ -11,10 +11,14 @@
                 </div>
             </section>
             <main class="page-content">
-                <form action="/itineraries" method="POST">
+                <form action="/itineraries" method="POST" enctype="multipart/form-data">
                     <div>
                         <label for="destination">Destination</label>
                         <input type="text" name="destination" id="name" required>
+                    </div>
+                    <div>
+                        <label for="continent">Continent</label>
+                        <input type="text" name="continent" id="continent" required>
                     </div>
                     <div>
                         <label for="timeOfYear">Time of year</label>
@@ -31,6 +35,12 @@
                     <div>
                         <label for="evening">Evening</label>
                         <textarea id="evening" name="evening" required></textarea>
+                    </div>
+                    <div class="file-upload-wrapper">
+                        <input type="file" name="image" id="image" accept="image/*">
+                        <label for="image" class="custom-file-upload">
+                            <span class="file-name" id="file-name"></span>
+                        </label>
                     </div>
                     <button type="submit" class="page-button">Publish</button>
                 </form>

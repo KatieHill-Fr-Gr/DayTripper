@@ -1,9 +1,10 @@
 import express from "express"
-import Itinerary from '../models/itinerary.js'
-
 const router = express.Router()
 
+import Itinerary from '../models/itinerary.js'
 import signedInUser from "../middleware/signed-in-user.js"
+import { upload } from '../utilities/cloudinary.js'
+import cloudinaryUpload from '../utilities/cloudinaryUpload.js'
 
 
 
@@ -37,11 +38,17 @@ router.get('/new', signedInUser, async (req, res) => {
 
 // Create
 
-router.post('/', signedInUser, async (req, res, next) => {
+router.post('/', signedInUser, upload.single('image'), async (req, res, next) => {
     try {
-        console.log("Session user:", req.session.user)
         req.body.contributor = req.session.user._id
-        console.log("Contributor ID being set:", req.body.contributor)
+
+        if (req.file && req.file.buffer) {
+            const result = await cloudinaryUpload(req.file.buffer);
+            req.body.image = result.secure_url;
+        } else {
+            req.body.profileImage = 'assets/home-page-palm-trees.jpg';
+        }
+
         const newItinerary = await Itinerary.create(req.body)
 
         return res.redirect(`/itineraries/${newItinerary._id}`)
@@ -60,8 +67,8 @@ router.get('/:itineraryId', async (req, res, next) => {
         const itinerary = await Itinerary.findById(itineraryId).populate("contributor", "username")
 
         if (!itinerary) {
-            return res.status(404).render('errors/404.ejs', { 
-                title: 'Itinerary Not Found' 
+            return res.status(404).render('errors/404.ejs', {
+                title: 'Itinerary Not Found'
             })
         }
 

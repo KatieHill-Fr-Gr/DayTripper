@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   profileImage: {
-    type: String, // Cloudinary URL
+    type: String, 
     required: false,
   },
 });

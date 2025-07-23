@@ -5,16 +5,20 @@ import mongoose from "mongoose";
 // Comments
 
 const commentSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  comment: { type: String, required: true }
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    comment: { type: String, required: true }
 }, {
-  timestamps: true
+    timestamps: true
 })
 
 // Itinerary
 
 const itinerarySchema = new mongoose.Schema({
     destination: {
+        type: String,
+        required: true
+    },
+   continent: {
         type: String,
         required: true
     },
@@ -39,7 +43,10 @@ const itinerarySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: String,
+    image: {
+        type: String,
+        required: true
+    },
     likedbyUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
