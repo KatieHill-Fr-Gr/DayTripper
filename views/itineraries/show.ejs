@@ -31,7 +31,7 @@
                                         </form>
                                         <% } %>
                                             <% } %>
-                                             <% } %>
+                                                <% } %>
                 </div>
             </section>
             <main class="page-content">
@@ -41,17 +41,24 @@
                                 <%= itinerary.timeOfYear %>
                             </strong>
                         </p>
-                        <ul>
-                            <li>
-                                Morning: <%= itinerary.morning %>
-                            </li>
-                            <li>
-                                Afternoon: <%= itinerary.afternoon %>
-                            </li>
-                            <li>
-                                Evening: <%= itinerary.evening %>
-                            </li>
-                        </ul>
+                        <p>
+                            Morning
+                        </p>
+                        <div id="itinerary-content">
+                            <%= itinerary.morning %>
+                        </div>
+                        <p>
+                            Afternoon
+                        </p>
+                        <div id="itinerary-content">
+                            <%= itinerary.afternoon %>
+                        </div>
+                        <p>
+                            Evening
+                        </p>
+                        <div id="itinerary-content">
+                            <%= itinerary.evening %>
+                        </div>
                         <p>
                             Comments:
                         </p>

@@ -55,7 +55,7 @@ section {
     gap: 1.5rem;
     text-align: left;
     padding: 1rem var(--content-padding);
-    margin-top: 4rem; 
+    margin-top: 4rem;
     border-bottom: 1px solid lightgrey;
 }
 
@@ -119,40 +119,51 @@ main.page-content {
     gap: 2rem;
 }
 
-main.page-content > form {
-  width: 50%;
+main.page-content>form {
+    width: 50%;
 }
 
 
 .content-wrapper {
-  display: flex;
-  gap: 2rem;
-  justify-content: space-between;
-  align-items: flex-start; /* optional depending on layout */
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .text-column,
 .image-column {
-  flex: 1; /* makes both columns take equal width (50%) */
+    flex: 1;
 }
 
 .text-column {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .image-column img {
-  width: 100%;
-  height: auto;
-  object-fit: cover; /* optional depending on your needs */
-  border-radius: 1rem; /* optional: for style */
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 1rem;
 }
 
 @media (max-width: 768px) {
-  .content-wrapper {
-    flex-direction: column;
-  }
+    .content-wrapper {
+        flex-direction: column;
+    }
+}
+
+#itinerary-content {
+  padding: 1.5rem 3rem;
+  margin-bottom: 1.25rem;
+  border-radius: 999px;
+  border: 1px solid lightgrey;
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -208,7 +219,7 @@ a.nav-button {
 
 a.nav-button:hover {
     color: white;
-    background-color:#4c949a;
+    background-color: #4c949a;
 }
 
 a.page-button,
@@ -229,7 +240,7 @@ a.page-button:hover,
 button.page-button:hover,
 input.page-button:hover {
     color: white;
-    background-color:#4c949a;
+    background-color: #4c949a;
 }
 
 
@@ -248,12 +259,12 @@ a.homepage-button {
 
 a.homepage-button:hover {
     color: white;
-    background-color:#4c949a;
+    background-color: #4c949a;
 }
 
 a.control-button,
 button.control-button,
-input.control-button {    
+input.control-button {
     padding: 0.5rem 1rem;
     background-color: white;
     color: black;
@@ -267,31 +278,32 @@ input.control-button {
 
 a.control-button:hover,
 button.control-button:hover,
-input.control-button:hover  {
+input.control-button:hover {
     color: lightgrey;
 }
 
 .flash {
-  font-weight: 400;
-  transition: opacity 0.3s ease;
+    font-weight: 400;
+    transition: opacity 0.3s ease;
 }
 
 .flash-success {
-  color: #4c949a;
+    color: #4c949a;
 }
 
 .flash-error {
-  color: #b00020;
+    color: #b00020;
 }
 
 .flash-warning {
-  color: #b36b00;
+    color: #b36b00;
 }
 
 .profile-pic {
-  width: 3.5rem;
-  height: 3.5rem;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
 }
+
