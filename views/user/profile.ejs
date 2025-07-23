@@ -15,29 +15,38 @@
             </section>
             <main class="page-content">
                 <h2>My itineraries</h2>
-                <ul>
+                <section id="index">
                     <% myItineraries.forEach(itinerary=> { %>
-                        <li>
+                        <div class="itinerary-item">
                             <a href="/itineraries/<%= itinerary._id %>">
-                                <%= itinerary.destination %>
+                                <div class="img-placeholder">
+                                    <img src="<%= itinerary.image %>">
+                                </div>
+                                <div class="itinerary-info">
+                                    <%= itinerary.destination %> by <%= itinerary.contributor.username %>
+                                </div>
                             </a>
-                        </li>
+                        </div>
                         <% }) %>
-                </ul>
+                </section>
                 <h2>Saved</h2>
                 <% if (likedItineraries.length===0) { %>
                     <p>You haven't saved any itineraries yet</p>
                     <% } %>
-                        <ul>
+                        <section id="index">
                             <% likedItineraries.forEach(itinerary=> { %>
-                                <li>
+                                <div class="itinerary-item">
                                     <a href="/itineraries/<%= itinerary._id %>">
-                                        <%= itinerary.destination %>
+                                        <div class="img-placeholder">
+                                            <img src="<%= itinerary.image %>">
+                                        </div>
+                                        <div class="itinerary-info">
+                                            <%= itinerary.destination %> by <%= itinerary.contributor.username %>
+                                        </div>
                                     </a>
-                                </li>
+                                </div>
                                 <% }) %>
-                        </ul>
-                        </ul>
+                        </section>
             </main>
     </body>
 

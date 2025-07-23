@@ -2,26 +2,29 @@
 <html lang="en">
 <%- include("../partials/head.ejs") %>
 
-<body>
-    <%- include("../partials/nav.ejs") %>
-        <section id="page-title">
-            <h1>Itineraries</h1>
-            <p>Start planning your next trip</p>
-            <div class="user-actions">
-        <a href="/itineraries/new" class="control-button">Add itinerary</a>
-        </div>
-        </section>
-        <section>
-             <ul>
+    <body>
+        <%- include("../partials/nav.ejs") %>
+            <section id="page-title">
+                <h1>Itineraries</h1>
+                <p>Start planning your next trip</p>
+                <div class="user-actions">
+                    <a href="/itineraries/new" class="control-button">Add itinerary</a>
+                </div>
+            </section>
+            <section id="index">
                 <% allItineraries.forEach(itinerary=> { %>
-                    <li>
+                    <div class="itinerary-item">
                         <a href="/itineraries/<%= itinerary.id %>">
-                        <%= itinerary.destination %> by <%= itinerary.contributor.username %>
+                            <div class="img-placeholder">
+                                <img src="<%= itinerary.image %>">
+                            </div>
+                            <div class="itinerary-info">
+                                <%= itinerary.destination %> by <%= itinerary.contributor.username %>
+                            </div>
                         </a>
-                    </li>
-                <% }) %>
-            </ul>
-        </section>
+                    </div>
+                    <% }) %>
+            </section>
     </body>
 
 </html>
