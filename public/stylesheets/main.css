@@ -131,6 +131,21 @@ main.page-content>form {
     align-items: flex-start;
 }
 
+.homepage-img {
+    object-fit: cover;
+}
+
+.homepage-img.vertical {
+    width: 35rem;
+    height: 55rem;
+}
+
+.homepage-img.horizontal {
+    margin-top: 7rem;
+    width: 45rem;
+    height: 30rem;
+}
+
 .text-column,
 .image-column {
     flex: 1;
