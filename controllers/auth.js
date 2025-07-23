@@ -115,7 +115,8 @@ router.post('/sign-in', async (req, res) => {
 
         req.session.user = {
             username: userInDatabase.username,
-            _id: userInDatabase._id
+            _id: userInDatabase._id,
+            profileImage: userInDatabase.profileImage
         };
 
         const redirectTo = req.session.redirectTo || '/'
