@@ -11,6 +11,7 @@
                 <p>By <%= itinerary.contributor.username %>
                 </p>
                 <div class="user-actions">
+                    <a href="/itineraries" class="control-button">View all</a>
                     <% if (user && itinerary.contributor.equals(user._id)) { %>
                         <a href="/itineraries/<%= itinerary._id %>/edit" class="control-button"> Edit</a>
                         <form action="/itineraries/<%= itinerary._id %>?_method=DELETE" method="POST">
@@ -39,32 +40,61 @@
                     <div class="text-column">
                         <p><strong>
                                 <%= itinerary.timeOfYear %>
-                            </strong>
-                        </p>
-                        <p>
-                            Morning
-                        </p>
+                            </strong></p>
+                        <p>Morning</p>
                         <div id="itinerary-content">
                             <%= itinerary.morning %>
                         </div>
-                        <p>
-                            Afternoon
-                        </p>
+                        <p>Afternoon</p>
                         <div id="itinerary-content">
                             <%= itinerary.afternoon %>
                         </div>
-                        <p>
-                            Evening
-                        </p>
+                        <p>Evening</p>
                         <div id="itinerary-content">
                             <%= itinerary.evening %>
                         </div>
-                        <p>
-                            Comments:
-                        </p>
+
+                        <div class="likes-info">
+                            <img src="https://res.cloudinary.com/<%= CLOUD_NAME %>/image/upload/v1753375961/Heart_icon_for_user_likes_is3wrh.png"
+                                class="likes-pic" alt="Pink heart icon">
+                            <%= itinerary.likedbyUsers.length %>
+                        </div>
+
+                        <% if (user && !itinerary.contributor.equals(user._id)) { %>
+                            <form class="form" action="/itineraries/<%= itinerary._id %>/comments" method="POST">
+                                <label for="comment">Comment:</label>
+                                <textarea name="comment" id="comment" required></textarea>
+                                <button type="submit" class="control-button">Post</button>
+                            </form>
+                            <% } %>
+
+                                <% itinerary.comments.forEach(comment=> { %>
+                                    <div class="comment">
+                                        <div class="comment-info">
+                                            <% if (comment.user.profileImage) { %>
+                                                <img src="<%= comment.user.profileImage %>" alt="User image"
+                                                    class="comments-pic" />
+                                                <% } %>
+                                                    <strong>
+                                                        <%= comment.user.username %>
+                                                    </strong>
+                                                    <% if (user && comment.user._id.equals(user._id)) { %>
+                                                        <form
+                                                            action="/itineraries/<%= itinerary._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                                            method="POST" style="display:inline;">
+                                                            <button type="submit" class="control-button">Delete</button>
+                                                        </form>
+                                                        <% } %>
+                                        </div>
+                                        <p>
+                                            <%= comment.comment %>
+                                        </p>
+                                    </div>
+                                    <% }) %>
                     </div>
+
                     <div class="image-column">
-                        <% itinerary.images.forEach((imageUrl) => { %>
+                        <% itinerary.images.forEach(imageUrl=> { %>
                             <img src="<%= imageUrl %>" alt="Itinerary image">
                             <% }) %>
                     </div>

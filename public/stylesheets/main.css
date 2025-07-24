@@ -181,14 +181,14 @@ main.page-content>form {
 }
 
 #itinerary-content {
-  padding: 1.5rem 3rem;
-  margin-bottom: 1.25rem;
-  border-radius: 999px;
-  border: 1px solid lightgrey;
-  outline: none;
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
+    padding: 1.5rem 3rem;
+    margin-bottom: 1.25rem;
+    border-radius: 999px;
+    border: 1px solid lightgrey;
+    outline: none;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -237,9 +237,14 @@ a:focus {
 a.home-link {
     color: #4c949a;
     text-decoration: none;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-family: "Newsreader", serif;
     font-weight: 600;
+    font-style: italic;
+}
+
+a.home-link:hover {
+    color: #c1d7d5;
 }
 
 a.page-link {
@@ -346,5 +351,28 @@ input.control-button:hover {
     object-fit: cover;
     border-radius: 50%;
     display: block;
+}
+
+.comment {
+    color: #5f5668;
+    font-style: italic;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.comment-info,
+.likes-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.comments-pic,
+.likes-pic {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
