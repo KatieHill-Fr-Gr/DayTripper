@@ -237,9 +237,14 @@ a:focus {
 a.home-link {
     color: #4c949a;
     text-decoration: none;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-family: "Newsreader", serif;
     font-weight: 600;
+    font-style: italic;
+}
+
+a.home-link:hover {
+    color: #c1d7d5;
 }
 
 a.page-link {

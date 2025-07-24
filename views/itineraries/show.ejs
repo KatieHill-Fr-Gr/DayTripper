@@ -11,6 +11,7 @@
                 <p>By <%= itinerary.contributor.username %>
                 </p>
                 <div class="user-actions">
+                    <a href="/itineraries" class="control-button">View all</a>
                     <% if (user && itinerary.contributor.equals(user._id)) { %>
                         <a href="/itineraries/<%= itinerary._id %>/edit" class="control-button"> Edit</a>
                         <form action="/itineraries/<%= itinerary._id %>?_method=DELETE" method="POST">
@@ -59,12 +60,16 @@
                         <div id="itinerary-content">
                             <%= itinerary.evening %>
                         </div>
-                        <p>
-                            Comments:
-                        </p>
+                        <% if (user && !itinerary.contributor.equals(user._id)) { %>
+                            <form class="form" action="/itineraries/<%= itinerary._id %>/comments" method="POST">
+                                <label for="comment">Comment:</label>
+                                <textarea name="comment" id="comment" required></textarea>
+                                <button type="submit" class="control-button">Post</button>
+                            </form>
+                            <% } %>
                     </div>
                     <div class="image-column">
-                        <% itinerary.images.forEach((imageUrl) => { %>
+                        <% itinerary.images.forEach((imageUrl)=> { %>
                             <img src="<%= imageUrl %>" alt="Itinerary image">
                             <% }) %>
                     </div>
