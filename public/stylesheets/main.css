@@ -146,9 +146,14 @@ main.page-content>form {
 }
 
 .homepage-img.horizontal {
-    margin-top: 7rem;
+    margin-top: 5rem;
     width: 45rem;
     height: 30rem;
+}
+
+.hero-image {
+    width: 12rem;
+    height: 20rem;
 }
 
 .text-column,
