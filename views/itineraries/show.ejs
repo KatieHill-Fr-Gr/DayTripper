@@ -33,6 +33,11 @@
                                         <% } %>
                                             <% } %>
                                                 <% } %>
+                                                    <div class="likes-info">
+                                                        <img src="https://res.cloudinary.com/<%= CLOUD_NAME %>/image/upload/v1753375961/Heart_icon_for_user_likes_is3wrh.png"
+                                                            class="likes-pic" alt="Pink heart icon">
+                                                        <%= itinerary.likedbyUsers.length %>
+                                                    </div>
                 </div>
             </section>
             <main class="page-content">
@@ -52,12 +57,6 @@
                         <p>Evening</p>
                         <div id="itinerary-content">
                             <%= itinerary.evening %>
-                        </div>
-
-                        <div class="likes-info">
-                            <img src="https://res.cloudinary.com/<%= CLOUD_NAME %>/image/upload/v1753375961/Heart_icon_for_user_likes_is3wrh.png"
-                                class="likes-pic" alt="Pink heart icon">
-                            <%= itinerary.likedbyUsers.length %>
                         </div>
 
                         <% if (user && !itinerary.contributor.equals(user._id)) { %>

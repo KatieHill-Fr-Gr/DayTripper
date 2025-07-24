@@ -17,6 +17,7 @@ import { defaultRouter } from '../../controllers/default.js'
 import { itinerariesRouter } from '../../controllers/itineraries.js'
 import { authRouter } from '../../controllers/auth.js'
 import { userRouter } from '../../controllers/user.js'
+import { commentsRouter } from './controllers/comments.js'
 
 import passUserToView from "../../middleware/pass-user-to-view.js"
 import userMessage from "../../middleware/user-messages.js"
@@ -66,6 +67,7 @@ app.use('/', defaultRouter)
 app.use('/itineraries', itinerariesRouter)
 app.use('/auth', authRouter)
 app.use('/', userRouter)
+app.use('/itineraries', commentsRouter)
 
 
 // * Error handlers

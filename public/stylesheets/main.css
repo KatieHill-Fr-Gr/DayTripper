@@ -364,8 +364,7 @@ input.control-button:hover {
 .likes-info {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 1rem;
+    gap: 1rem;
 }
 
 .comments-pic,
