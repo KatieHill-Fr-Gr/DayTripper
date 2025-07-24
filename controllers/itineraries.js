@@ -42,7 +42,7 @@ router.get('/new', signedInUser, async (req, res) => {
 router.get('/europe', async (req, res, next) => {
     try {
         const itineraries = await Itinerary.find().populate("contributor", "username")
-        return res.render('itineraries/europe.ejs', { 
+        return res.render('itineraries/europe.ejs', {
             title: "Europe",
             allItineraries: itineraries
         })
@@ -56,7 +56,7 @@ router.get('/europe', async (req, res, next) => {
 router.get('/americas', async (req, res, next) => {
     try {
         const itineraries = await Itinerary.find().populate("contributor", "username")
-        return res.render('itineraries/americas.ejs', { 
+        return res.render('itineraries/americas.ejs', {
             title: "Americas",
             allItineraries: itineraries
         })
@@ -70,7 +70,7 @@ router.get('/americas', async (req, res, next) => {
 router.get('/asia', async (req, res, next) => {
     try {
         const itineraries = await Itinerary.find().populate("contributor", "username")
-        return res.render('itineraries/asia.ejs', { 
+        return res.render('itineraries/asia.ejs', {
             title: "Asia",
             allItineraries: itineraries
         })
@@ -84,7 +84,7 @@ router.get('/asia', async (req, res, next) => {
 router.get('/africa', async (req, res, next) => {
     try {
         const itineraries = await Itinerary.find().populate("contributor", "username")
-        return res.render('itineraries/africa.ejs', { 
+        return res.render('itineraries/africa.ejs', {
             title: "Africa",
             allItineraries: itineraries
         })
@@ -124,7 +124,9 @@ router.get('/:itineraryId', async (req, res, next) => {
     console.log("Show route")
     try {
         const { itineraryId } = req.params
-        const itinerary = await Itinerary.findById(itineraryId).populate("contributor", "username")
+        const itinerary = await Itinerary.findById(itineraryId)
+        .populate("contributor", "username")
+        .populate("comments.user", "username profileImage")
 
         if (!itinerary) {
             return res.status(404).render('errors/404.ejs', {
@@ -136,11 +138,15 @@ router.get('/:itineraryId', async (req, res, next) => {
             return likedId.equals(req.session.user._id)
         })
 
+        const userHasCommented = itinerary.comments.some(commentedId => {
+            return commentedId.equals(req.session.user._id)
+        })
 
         return res.render('itineraries/show.ejs', {
             title: `${itinerary._id}`,
             itinerary,
-            userHasLiked
+            userHasLiked,
+            userHasCommented
         })
 
     } catch (error) {

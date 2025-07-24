@@ -40,26 +40,20 @@
                     <div class="text-column">
                         <p><strong>
                                 <%= itinerary.timeOfYear %>
-                            </strong>
-                        </p>
-                        <p>
-                            Morning
-                        </p>
+                            </strong></p>
+                        <p>Morning</p>
                         <div id="itinerary-content">
                             <%= itinerary.morning %>
                         </div>
-                        <p>
-                            Afternoon
-                        </p>
+                        <p>Afternoon</p>
                         <div id="itinerary-content">
                             <%= itinerary.afternoon %>
                         </div>
-                        <p>
-                            Evening
-                        </p>
+                        <p>Evening</p>
                         <div id="itinerary-content">
                             <%= itinerary.evening %>
                         </div>
+
                         <% if (user && !itinerary.contributor.equals(user._id)) { %>
                             <form class="form" action="/itineraries/<%= itinerary._id %>/comments" method="POST">
                                 <label for="comment">Comment:</label>
@@ -67,9 +61,27 @@
                                 <button type="submit" class="control-button">Post</button>
                             </form>
                             <% } %>
+
+                                <% itinerary.comments.forEach(comment=> { %>
+                                    <div class="comment">
+                                        <div class="comment-info">
+                                            <% if (comment.user.profileImage) { %>
+                                                <img src="<%= comment.user.profileImage %>" alt="User image"
+                                                    class="comments-pic" />
+                                                <% } %>
+                                                    <strong>
+                                                        <%= comment.user.username %>
+                                                    </strong>
+                                        </div>
+                                        <p>
+                                            <%= comment.comment %>
+                                        </p>
+                                    </div>
+                                    <% }) %>
                     </div>
+
                     <div class="image-column">
-                        <% itinerary.images.forEach((imageUrl)=> { %>
+                        <% itinerary.images.forEach(imageUrl=> { %>
                             <img src="<%= imageUrl %>" alt="Itinerary image">
                             <% }) %>
                     </div>

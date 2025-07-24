@@ -12,7 +12,7 @@ router.post('/:itineraryId/comments', signedInUser, async (req, res, next) => {
         req.body.user = req.session.user._id
 
         const itinerary = await Itinerary.findById(itineraryId)
-        itineraryId.comments.push(req.body)
+        itinerary.comments.push(req.body)
 
         await itinerary.save()
 
