@@ -54,6 +54,12 @@
                             <%= itinerary.evening %>
                         </div>
 
+                        <div class="likes-info">
+                            <img src="https://res.cloudinary.com/<%= CLOUD_NAME %>/image/upload/v1753375961/Heart_icon_for_user_likes_is3wrh.png"
+                                class="likes-pic" alt="Pink heart icon">
+                            <%= itinerary.likedbyUsers.length %>
+                        </div>
+
                         <% if (user && !itinerary.contributor.equals(user._id)) { %>
                             <form class="form" action="/itineraries/<%= itinerary._id %>/comments" method="POST">
                                 <label for="comment">Comment:</label>
@@ -72,6 +78,13 @@
                                                     <strong>
                                                         <%= comment.user.username %>
                                                     </strong>
+                                                    <% if (user && comment.user._id.equals(user._id)) { %>
+                                                        <form
+                                                            action="/itineraries/<%= itinerary._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                                            method="POST" style="display:inline;">
+                                                            <button type="submit" class="control-button">Delete</button>
+                                                        </form>
+                                                        <% } %>
                                         </div>
                                         <p>
                                             <%= comment.comment %>

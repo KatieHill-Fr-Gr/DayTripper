@@ -125,8 +125,9 @@ router.get('/:itineraryId', async (req, res, next) => {
     try {
         const { itineraryId } = req.params
         const itinerary = await Itinerary.findById(itineraryId)
-        .populate("contributor", "username")
-        .populate("comments.user", "username profileImage")
+            .populate("contributor", "username")
+            .populate("comments.user", "username profileImage")
+            .populate("likedbyUsers", "username profileImage")
 
         if (!itinerary) {
             return res.status(404).render('errors/404.ejs', {
@@ -134,13 +135,15 @@ router.get('/:itineraryId', async (req, res, next) => {
             })
         }
 
-        const userHasLiked = itinerary.likedbyUsers.some(likedId => {
-            return likedId.equals(req.session.user._id)
-        })
+        const userId = req.session.user?._id;
 
-        const userHasCommented = itinerary.comments.some(commentedId => {
-            return commentedId.equals(req.session.user._id)
-        })
+        const userHasLiked = userId
+            ? itinerary.likedbyUsers.some(likedId => likedId.equals(userId))
+            : false;
+
+        const userHasCommented = userId
+            ? itinerary.comments.some(comment => comment.user.equals(userId))
+            : false;
 
         return res.render('itineraries/show.ejs', {
             title: `${itinerary._id}`,

@@ -49,7 +49,7 @@ router.delete('/:itineraryId/comments/:commentId', signedInUser, async (req, res
 
         await itinerary.save()
 
-        return res.redirect('/user/profile')
+        return res.redirect(`/itineraries/${itineraryId}`)
 
     } catch (error) {
         next(error)
