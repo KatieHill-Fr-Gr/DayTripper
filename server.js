@@ -34,6 +34,8 @@ const getConnected = async () => {
 
 getConnected()
 
+app.locals.CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
+
 /*------------------------------- Middleware -------------------------------*/
 
 

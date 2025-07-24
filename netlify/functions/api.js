@@ -20,6 +20,24 @@ import { userRouter } from '../../controllers/user.js'
 import passUserToView from "../../middleware/pass-user-to-view.js"
 import userMessage from "../../middleware/user-messages.js"
 
+/*------------------------------- Connection -------------------------------*/
+
+
+const getConnected = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI)
+        console.log('Connection established')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+getConnected()
+
+export const handler = serverless(app)
+
+app.locals.CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
+
 /*------------------------------- Middleware -------------------------------*/
 
 
@@ -67,18 +85,3 @@ app.use((err, req, res, next) => {
   })
 })
 
-/*------------------------------- Connection -------------------------------*/
-
-
-const getConnected = async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URI)
-        console.log('Connection established')
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-getConnected()
-
-export const handler = serverless(app)
