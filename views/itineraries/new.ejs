@@ -37,7 +37,7 @@
                         <textarea id="evening" name="evening" required></textarea>
                     </div>
                     <div class="file-upload-wrapper">
-                        <input type="file" name="image" id="image" accept="image/*">
+                        <input type="file" name="images" id="image" accept="image/*" multiple>
                         <label for="image" class="custom-file-upload">
                             <span class="file-name" id="file-name"></span>
                         </label>
@@ -45,6 +45,24 @@
                     <button type="submit" class="page-button">Publish</button>
                 </form>
             </main>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const fileInput = document.getElementById('image');
+                    const fileNameDisplay = document.getElementById('file-name');
+                    const label = document.querySelector('.custom-file-upload');
+
+                    fileInput.addEventListener('change', function () {
+                        if (this.files && this.files.length > 0) {
+                            const fileNames = Array.from(this.files).map(file => file.name).join(', ');
+                            fileNameDisplay.textContent = fileNames;
+                            label.classList.add('has-file');
+                        } else {
+                            fileNameDisplay.textContent = 'No files chosen';
+                            label.classList.remove('has-file');
+                        }
+                    });
+                });
+            </script>
     </body>
 
 </html>

@@ -5,14 +5,15 @@
     <body>
         <%- include("../partials/nav.ejs") %>
             <section id="page-title">
-                <h1>Itineraries</h1>
-                <p>Start planning your next trip</p>
+                <h1>Americas</h1>
+                <p>Get inspiration for your trip to Canada, the US, and South America</p>
                 <div class="user-actions">
                     <a href="/itineraries/new" class="control-button">Add itinerary</a>
                 </div>
             </section>
             <section id="index">
                 <% allItineraries.forEach(itinerary=> { %>
+                    <% if (itinerary.continent === "Americas") { %>
                     <div class="itinerary-item">
                         <a href="/itineraries/<%= itinerary.id %>">
                             <div class="img-placeholder">
@@ -25,6 +26,7 @@
                             </div>
                         </a>
                     </div>
+                    <% } %>
                     <% }) %>
             </section>
     </body>

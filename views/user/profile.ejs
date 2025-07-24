@@ -20,7 +20,10 @@
                         <div class="itinerary-item">
                             <a href="/itineraries/<%= itinerary._id %>">
                                 <div class="img-placeholder">
-                                    <img src="<%= itinerary.image %>">
+                                    <% if (itinerary.images && itinerary.images.length> 0) { %>
+                                        <img src="<%= itinerary.images[0] %>"
+                                            alt="Image of <%= itinerary.destination %>">
+                                        <% } %>
                                 </div>
                                 <div class="itinerary-info">
                                     <%= itinerary.destination %> by <%= itinerary.contributor.username %>
@@ -38,7 +41,10 @@
                                 <div class="itinerary-item">
                                     <a href="/itineraries/<%= itinerary._id %>">
                                         <div class="img-placeholder">
-                                            <img src="<%= itinerary.image %>">
+                                            <% if (itinerary.images && itinerary.images.length> 0) { %>
+                                                <img src="<%= itinerary.images[0] %>"
+                                                    alt="Image of <%= itinerary.destination %>">
+                                                <% } %>
                                         </div>
                                         <div class="itinerary-info">
                                             <%= itinerary.destination %> by <%= itinerary.contributor.username %>

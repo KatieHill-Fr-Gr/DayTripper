@@ -18,7 +18,7 @@ const itinerarySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-   continent: {
+    continent: {
         type: String,
         required: true
     },
@@ -43,10 +43,12 @@ const itinerarySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
-        type: String,
-        required: true
-    },
+    images: [
+        {
+            type: String,
+            required: true
+        }
+    ],
     likedbyUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

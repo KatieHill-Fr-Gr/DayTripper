@@ -36,17 +36,77 @@ router.get('/new', signedInUser, async (req, res) => {
     }
 })
 
+// Category: Europe
+
+// Europe
+router.get('/europe', async (req, res, next) => {
+    try {
+        const itineraries = await Itinerary.find().populate("contributor", "username")
+        return res.render('itineraries/europe.ejs', { 
+            title: "Europe",
+            allItineraries: itineraries
+        })
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+})
+
+// Americas
+router.get('/americas', async (req, res, next) => {
+    try {
+        const itineraries = await Itinerary.find().populate("contributor", "username")
+        return res.render('itineraries/americas.ejs', { 
+            title: "Americas",
+            allItineraries: itineraries
+        })
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+})
+
+// Asia
+router.get('/asia', async (req, res, next) => {
+    try {
+        const itineraries = await Itinerary.find().populate("contributor", "username")
+        return res.render('itineraries/asia.ejs', { 
+            title: "Asia",
+            allItineraries: itineraries
+        })
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+})
+
+// Africa
+router.get('/africa', async (req, res, next) => {
+    try {
+        const itineraries = await Itinerary.find().populate("contributor", "username")
+        return res.render('itineraries/africa.ejs', { 
+            title: "Africa",
+            allItineraries: itineraries
+        })
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+})
+
 // Create
 
-router.post('/', signedInUser, upload.single('image'), async (req, res, next) => {
+router.post('/', signedInUser, upload.array('images', 3), async (req, res, next) => {
     try {
         req.body.contributor = req.session.user._id
 
-        if (req.file && req.file.buffer) {
-            const result = await cloudinaryUpload(req.file.buffer);
-            req.body.image = result.secure_url;
+        if (req.files && req.files.length > 0) {
+            const results = await Promise.all(
+                req.files.map(file => cloudinaryUpload(file.buffer))
+            )
+            req.body.images = results.map(result => result.secure_url)
         } else {
-            req.body.profileImage = 'assets/home-page-palm-trees.jpg';
+            req.body.images = []
         }
 
         const newItinerary = await Itinerary.create(req.body)

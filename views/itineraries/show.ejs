@@ -64,7 +64,9 @@
                         </p>
                     </div>
                     <div class="image-column">
-                        <img src="<%= itinerary.image %>" alt="Descriptive alt text">
+                        <% itinerary.images.forEach((imageUrl) => { %>
+                            <img src="<%= imageUrl %>" alt="Itinerary image">
+                            <% }) %>
                     </div>
                 </div>
             </main>

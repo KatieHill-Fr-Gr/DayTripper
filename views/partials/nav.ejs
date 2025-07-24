@@ -12,15 +12,13 @@
 <body>
     <nav>
         <div id="left-nav">
-            <a href="/">DayTripper</a>
-            <!-- <a href="/itineraries">itineraries</a> -->
-            <!-- SPLIT THIS BY CATEGORY? -->
+            <a href="/" class="home-link">DayTripper</a>
         </div>
         <div id="right-nav">
-            <a href="/">Europe</a>
-            <a href="/">Americas</a>
-            <a href="/">Asia</a>
-            <a href="/">Africa</a>
+            <a href="/itineraries/europe">Europe</a>
+            <a href="/itineraries/americas">Americas</a>
+            <a href="/itineraries/asia">Asia</a>
+            <a href="/itineraries/africa">Africa</a>
             <% if (message && message.type==='success' ) { %>
                 <div class="flash flash-success">
                     <%= message.text %>
