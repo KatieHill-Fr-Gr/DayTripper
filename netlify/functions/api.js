@@ -9,6 +9,7 @@ import 'dotenv/config'
 import methodOverride from 'method-override'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+import bodyParser from '../../middleware/bodyParser.js'
 
 const port = process.env.PORT
 
@@ -41,7 +42,7 @@ app.locals.CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 /*------------------------------- Middleware -------------------------------*/
 
 
-app.use(express.urlencoded())
+app.use(bodyParser)
 app.use(morgan('dev'))
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
