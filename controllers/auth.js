@@ -44,11 +44,12 @@ router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
         req.body.password = hashedPassword;
 
         if (req.file && req.file.buffer) {
+            console.log("uploading")
             const result = await cloudinaryUpload(req.file.buffer);
             req.body.profileImage = result.secure_url;
         } else {
-            console.error('Cloudinary upload failed:', error);
-            req.body.profileImage = 'https://ui-avatars.com/api/?background=4c949a&color=fff';
+            console.error('Cloudinary upload failed')
+            req.body.profileImage = 'https://ui-avatars.com/api/?name='+ req.body.username[0];
         }
 
         const user = await User.create(req.body)
