@@ -187,13 +187,22 @@ router.get('/:itineraryId/edit', signedInUser, async (req, res, next) => {
 
 // Update
 
-router.put('/:itineraryId', signedInUser, async (req, res, next) => {
+router.put('/:itineraryId', signedInUser, upload.array('images', 3), async (req, res, next) => {
     try {
         const { itineraryId } = req.params
         const itineraryToUpdate = await Itinerary.findById(itineraryId)
 
         if (!itineraryToUpdate.contributor.equals(req.session.user._id)) {
             return res.status(403).send('You are not authorized to edit this itinerary')
+        }
+
+        if (req.files && req.files.length > 0) {
+            const results = await Promise.all(
+                req.files.map(file => cloudinaryUpload(file.buffer))
+            )
+            req.body.images = results.map(result => result.secure_url)
+        } else {
+            delete req.body.images;
         }
 
         await Itinerary.findByIdAndUpdate(itineraryId, req.body)

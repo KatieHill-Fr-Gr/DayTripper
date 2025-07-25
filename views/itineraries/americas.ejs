@@ -13,21 +13,22 @@
             </section>
             <section id="index">
                 <% allItineraries.forEach(itinerary=> { %>
-                    <% if (itinerary.continent === "Americas") { %>
-                    <div class="itinerary-item">
-                        <a href="/itineraries/<%= itinerary.id %>">
-                            <div class="img-placeholder">
-                                <% if (itinerary.images && itinerary.images.length> 0) { %>
-                                    <img src="<%= itinerary.images[0] %>" alt="Image of <%= itinerary.destination %>">
-                                    <% } %>
-                            </div>
-                            <div class="itinerary-info">
-                                <%= itinerary.destination %> by <%= itinerary.contributor.username %>
-                            </div>
-                        </a>
-                    </div>
-                    <% } %>
-                    <% }) %>
+                    <% if ( ["Americas", "USA" , "North America" , "South America", "Latin America", "Central America"].includes(itinerary.continent)) { %>
+                        <div class="itinerary-item">
+                            <a href="/itineraries/<%= itinerary.id %>">
+                                <div class="img-placeholder">
+                                    <% if (itinerary.images && itinerary.images.length> 0) { %>
+                                        <img src="<%= itinerary.images[0] %>"
+                                            alt="Image of <%= itinerary.destination %>">
+                                        <% } %>
+                                </div>
+                                <div class="itinerary-info">
+                                    <%= itinerary.destination %> by <%= itinerary.contributor.username %>
+                                </div>
+                            </a>
+                        </div>
+                        <% } %>
+                            <% }) %>
             </section>
     </body>
 

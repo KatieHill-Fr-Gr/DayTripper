@@ -11,7 +11,6 @@
                 <p>By <%= itinerary.contributor.username %>
                 </p>
                 <div class="user-actions">
-                    <a href="/itineraries" class="control-button">View all</a>
                     <% if (user && itinerary.contributor.equals(user._id)) { %>
                         <a href="/itineraries/<%= itinerary._id %>/edit" class="control-button"> Edit</a>
                         <form action="/itineraries/<%= itinerary._id %>?_method=DELETE" method="POST">
@@ -19,6 +18,7 @@
                         </form>
                         <% } else { %>
                             <% if (user) { %>
+                                <a href="/itineraries" class="control-button">View all</a>
                                 <% if (userHasLiked) { %>
                                     <form
                                         action="/itineraries/<%= itinerary._id %>/liked-by/<%= user._id %>?_method=DELETE"
@@ -40,12 +40,14 @@
                                                     </div>
                 </div>
             </section>
+            <div class="subtitle">
+                <strong>
+                    <%= itinerary.timeOfYear %>
+                </strong>
+            </div>
             <main class="page-content">
                 <div class="content-wrapper">
                     <div class="text-column">
-                        <p><strong>
-                                <%= itinerary.timeOfYear %>
-                            </strong></p>
                         <p>Morning</p>
                         <div id="itinerary-content">
                             <%= itinerary.morning %>

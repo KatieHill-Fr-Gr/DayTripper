@@ -6,14 +6,14 @@
         <%- include("../partials/nav.ejs") %>
             <section id="page-title">
                 <h1>Asia</h1>
-                <p>From Bali to Singapore, get the most of every destination</p>
+                <p>From Bali to Singapore, get the most out of every destination</p>
                 <div class="user-actions">
                     <a href="/itineraries/new" class="control-button">Add itinerary</a>
                 </div>
             </section>
             <section id="index">
                 <% allItineraries.forEach(itinerary=> { %>
-                    <% if (itinerary.continent === "Asia") { %>
+                    <% if ( ["Asia", "Southeast Asia" , "Far East" , "Indonesia", "Malaysia"].includes(itinerary.continent)) { %>
                     <div class="itinerary-item">
                         <a href="/itineraries/<%= itinerary.id %>">
                             <div class="img-placeholder">
