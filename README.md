@@ -130,18 +130,4 @@ I created the UI design in Figma (including all the main pages, fonts, colour sc
 ### Challenges
 
 
-I wanted to allow the user to upload multiple images to accompany their itinerary. To make this as user-friendly as possible, I made sure that the file names in the input field were visible so that users could tell the upload was successful. I used the DOM to do this:
-
-![File Upload](https://res.cloudinary.com/dh0z1a9nd/image/upload/v1757605158/DayTripper_FileUpload_ggluyj.png)
-
-
-Iterating through the itineraries and showing them on different category pages according to continent. I used an array and includes() in the if statement as a catch-all for the different user inputs:
-
- ![File Upload](https://res.cloudinary.com/dh0z1a9nd/image/upload/v1757605281/DayTripper_ItinerariesByRegion_wcesop.png)
-
- 
-Displaying comments/likes on the individual itinerary page:
-
-![File Upload](https://res.cloudinary.com/dh0z1a9nd/image/upload/v1757605534/DayTripper_UserInteractions_s3ex3u.png)
-
 
