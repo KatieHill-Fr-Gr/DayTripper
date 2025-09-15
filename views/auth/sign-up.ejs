@@ -50,6 +50,23 @@
                             <a href="/auth/sign-in" class="page-link">Sign in</a>
                         </p>
             </main>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const fileInput = document.getElementById('profileImage');
+                    const fileNameDisplay = document.getElementById('file-name');
+                    const label = document.querySelector('.custom-file-upload');
+
+                    fileInput.addEventListener('change', function () {
+                        if (this.files && this.files.length > 0) {
+                            fileNameDisplay.textContent = this.files[0].name;
+                            label.classList.add('has-file');
+                        } else {
+                            fileNameDisplay.textContent = 'No files chosen';
+                            label.classList.remove('has-file');
+                        }
+                    });
+                });
+            </script>
     </body>
 
 </html>
