@@ -6,6 +6,11 @@ by Katie Hill
 
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" 
      alt="JavaScript" width="40" height="40"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg" 
+     alt="CSS3" width="40" height="40"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg" 
+     alt="HTML" width="40" height="40"/>  
+
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongoose/mongoose-original-wordmark.svg" 
      alt="Mongoose" width="40" height="40"/>
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" 
@@ -18,28 +23,14 @@ by Katie Hill
 
 ## About
 
-DayTripper is a travel website where users can search and upload itineraries for their favourite destinations. Each itinerary is for one day only (e.g. 24 hours in Milan) with recommendations for what to see and do (including where to eat and how to get around). The itineraries are tried-and-tested by fellow travellers (unlike AI-generated ideas) and can include local knowledge, anecdotes, and destinations that are off the beaten track. 
+DayTripper is a travel website where users can search and upload itineraries for their favourite destinations. Each itinerary is for one day only (e.g. 24 hours in Milan) with recommendations for what to see and do (including where to eat and how to get around). The itineraries are tried and tested by fellow travellers (unlike AI-generated ideas) and can include local knowledge, anecdotes, and tips for those who like to stray off the beaten track.
 
-It’s a useful tool for planning trips to places you haven’t been before or just for inspiration on where to travel next. It keeps things simple by limiting itineraries to one day so users don’t have to search through loads of information. Users will also be able to save multiple itineraries for the same destination (if available) to build a complete itinerary for their trip. Users also can upload a profile photo, comment on itineraries they’ve tried, and edit or delete their own itineraries.
-
-
-* Browse a list of itineraries (organised by location on the index page)
-* View a list of most popular itineraries on the site (listed on the home page?)
-* Sign up to create their own account (including photo upload)
-* Sign in
-* Create their own itinerary and add it to the site (including photo upload)
-* Edit their own itineraries
-* Delete their own itineraries
-* Check a list of their own itineraries on their profile page
-* Like/save other itineraries (which adds them to their profile page under “favourites”)
-* Unlike/unsave other itineraries
-* Comment on any itinerary (to add recommendations or give feedback)
-
+It’s a useful tool for planning trips to places you haven’t been before and can also serve as inspiration. Limiting itineraries to one day keeps things simple so you don’t have to search through too much information. Anyone can browse the itineraries but you have to create an account (with the option to add a profile photo) in order to save and comment on itineraries you’ve tried. Signed-in users can also create, edit or delete their own itineraries (you can upload up to 3 images for each itinerary). You can view a list of your own itineraries and any itineraries you’ve saved on your profile page. 
 
 ### Brief
 
 
-For this project, you’ll build a Node/Express/MongoDB application with full CRUD. You get to decide what you want to build as long as it meets the technical requirements outlined below.
+This was my second project on the GA Software Engineering Bootcamp. Our brief was to build a Node/Express/MongoDB application with full CRUD that met the following criteria: 
 
 MVP
 
@@ -53,11 +44,9 @@ MVP
 
 
 
-
-
 ## Getting Started
 
-After the initial setup (Express, Mongoose, EJS), install the following packages: 
+After the initial setup (Express, Mongoose, EJS), you'll need to install the following packages: 
 
 For user authentication: 
 
@@ -88,10 +77,6 @@ npm install multer
 npm install streamifier
 ```
 
-```bash
-npm install streamify
-```
-
 For HTTP requests: 
 
 ```bash
@@ -103,24 +88,6 @@ npm install method-override
 ```
 
 
-
-
 ## Planning 
-
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" 
-     alt="Figma" width="40" height="40"/>
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Asana_logo.svg" 
-     alt="Asana" width="100" height="100"/>
-
-I used Asana to plan this project (5 days to build, 2 days for UAT/additional features).
-
-
-
-## Build
-
-
-
-### Challenges
-
 
 
