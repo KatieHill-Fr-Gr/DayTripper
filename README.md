@@ -114,13 +114,6 @@ npm install method-override
 
 I used Asana to plan this project (5 days to build, 2 days for UAT/additional features).
 
-![Figma Design](https://res.cloudinary.com/dh0z1a9nd/image/upload/v1757593538/DayTripper_Planning_nt2swt.png)
-
-I created the UI design in Figma (including all the main pages, fonts, colour scheme, and images): 
-
-![Figma Design](https://res.cloudinary.com/dh0z1a9nd/image/upload/v1757586531/DayTripper_project2_iwddk3.png)
-![Figma Design](https://res.cloudinary.com/dh0z1a9nd/image/upload/v1757586968/DayTripper_project2_2_xtjkap.png)
-
 
 
 ## Build
