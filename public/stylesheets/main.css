@@ -119,23 +119,26 @@ section {
 main.page-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     text-align: left;
     padding: 2rem var(--content-padding);
     margin-top: 4rem;
     gap: 2rem;
 }
 
+main.page-content.form-page {
+    align-items: flex-start;
+}
+
 main.page-content>form {
     width: 50%;
 }
 
-
 .content-wrapper {
     display: flex;
     gap: 2rem;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .image-container {
