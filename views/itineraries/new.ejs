@@ -11,39 +11,48 @@
                 </div>
             </section>
             <main class="page-content form-page">
-                <form action="/itineraries" method="POST" enctype="multipart/form-data">
-                    <div>
-                        <label for="destination">Destination</label>
-                        <input type="text" name="destination" id="name" required>
+                <% if (message && message.type==='error' ) { %>
+                    <div class="flash flash-error">
+                        <%= message.text %>
                     </div>
-                    <div>
-                        <label for="continent">Continent</label>
-                        <input type="text" name="continent" id="continent" required>
-                    </div>
-                    <div>
-                        <label for="timeOfYear">Time of year</label>
-                        <input type="text" name="timeOfYear" id="timeOfYear" required>
-                    </div>
-                    <div>
-                        <label for="morning">Morning</label>
-                        <textarea id="morning" name="morning" required></textarea>
-                    </div>
-                    <div>
-                        <label for="afternoon">Afternoon</label>
-                        <textarea id="afternoon" name="afternoon" required></textarea>
-                    </div>
-                    <div>
-                        <label for="evening">Evening</label>
-                        <textarea id="evening" name="evening" required></textarea>
-                    </div>
-                    <div class="file-upload-wrapper">
-                        <input type="file" name="images" id="image" accept="image/*" multiple>
-                        <label for="image" class="custom-file-upload">
-                            <span class="file-name" id="file-name"></span>
-                        </label>
-                    </div>
-                    <button type="submit" class="page-button">Publish</button>
-                </form>
+                    <% } %>
+                        <form action="/itineraries" method="POST" enctype="multipart/form-data">
+                            <div>
+                                <label for="destination">Destination</label>
+                                <input type="text" name="destination" id="name" required
+                                    value="<%= formData.destination || '' %>">
+                            </div>
+                            <div>
+                                <label for="continent">Continent</label>
+                                <input type="text" name="continent" id="continent" required
+                                    value="<%= formData.continent || '' %>">
+                            </div>
+                            <div>
+                                <label for="timeOfYear">Time of year</label>
+                                <input type="text" name="timeOfYear" id="timeOfYear" required
+                                    value="<%= formData.timeOfYear || '' %>">
+                            </div>
+                            <div>
+                                <label for="morning">Morning</label>
+                                <textarea id="morning" name="morning" required><%= formData.morning || '' %></textarea>
+                            </div>
+                            <div>
+                                <label for="afternoon">Afternoon</label>
+                                <textarea id="afternoon" name="afternoon"
+                                    required><%= formData.afternoon || '' %></textarea>
+                            </div>
+                            <div>
+                                <label for="evening">Evening</label>
+                                <textarea id="evening" name="evening" required><%= formData.evening || '' %></textarea>
+                            </div>
+                            <div class="file-upload-wrapper">
+                                <input type="file" name="images" id="image" accept="image/*" multiple>
+                                <label for="image" class="custom-file-upload">
+                                    <span class="file-name" id="file-name"></span>
+                                </label>
+                            </div>
+                            <button type="submit" class="page-button">Publish</button>
+                        </form>
             </main>
             <script>
                 document.addEventListener("DOMContentLoaded", function () {

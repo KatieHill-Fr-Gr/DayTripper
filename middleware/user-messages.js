@@ -1,11 +1,11 @@
 const userMessage = (req, res, next) => {
   if (req.session.message) {
-    res.locals.message = req.session.message;
-    req.session.message = null;
+    res.locals.message = req.session.message
+    req.session.message = null
   } else {
-    res.locals.message = null;
+    res.locals.message = null
   }
-  next();
-};
+  next()
+}
 
-export default userMessage;
+export default userMessage
