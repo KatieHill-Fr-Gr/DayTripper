@@ -27,6 +27,8 @@ DayTripper is a travel website where users can search and upload itineraries for
 
 It’s a useful tool for planning trips to places you haven’t been before and can also serve as inspiration. Limiting itineraries to one day keeps things simple so you don’t have to search through too much information. Anyone can browse the itineraries but you have to create an account (with the option to add a profile photo) in order to save and comment on itineraries you’ve tried. Signed-in users can also create, edit or delete their own itineraries (you can upload up to 3 images for each itinerary). You can view a list of your own itineraries and any itineraries you’ve saved on your profile page. 
 
+You can try it out here: https://daytripper-itinerary-planner.netlify.app/
+
 ### Brief
 
 
@@ -143,7 +145,14 @@ When working on the "save" and "comment" features, I also had to find a solution
 
 I used optional chaining (e.g. req.session.user?._id) to track if the user was logged in or not. This meant I could then check if the logged-in user had saved the itinerary or posted any of the comments using userHasLiked and userHasCommented.   
 
+## Key Learnings
 
+Overall, this project went really well. I spent a lot of time planning the relationships, functionalities, and overall layout, which meant that the build was relatively straightforward. It was particularly helpful having the relationships mapped out before I started to code. This meant that there was less to fix during UAT (I asked around five people to test the app). 
+
+
+## Future Improvements
+
+The user profile is only visible to the user at the moment. As this is a social media app and intended to build a community, it would be better to have public profiles, too. I’d also like to display the most popular posts and give users bronze, silver or gold traveller status based on how many itineraries they have posted or how popular their itineraries are. 
 
 
 
