@@ -1,4 +1,4 @@
-# DAYTRIPPER — A social media app with a travel magazine-feel
+# DAYTRIPPER — A blogging app with a travel magazine-feel
 by Katie Hill
 
 
