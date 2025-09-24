@@ -1,4 +1,4 @@
-# DAYTRIPPER
+# DAYTRIPPER — A social media app with a travel magazine-feel
 by Katie Hill
 
 
@@ -20,72 +20,49 @@ by Katie Hill
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-plain-wordmark.svg" 
      alt="MongoDB" width="40" height="40"/>
 
+## Timeframe
+
+- **Duration** 5 days (4 days to build, 1 day to test)
+- **Team** This was a solo project
 
 ## About
 
-DayTripper is a travel website where users can search and upload itineraries for their favourite destinations. Each itinerary is for one day only (e.g. 24 hours in Milan) with recommendations for what to see and do (including where to eat and how to get around). The itineraries are tried and tested by fellow travellers (unlike AI-generated ideas) and can include local knowledge, anecdotes, and tips for those who like to stray off the beaten track.
-
-It’s a useful tool for planning trips to places you haven’t been before and can also serve as inspiration. Limiting itineraries to one day keeps things simple so you don’t have to search through too much information. Anyone can browse the itineraries but you have to create an account (with the option to add a profile photo) in order to save and comment on itineraries you’ve tried. Signed-in users can also create, edit or delete their own itineraries (you can upload up to 3 images for each itinerary). You can view a list of your own itineraries and any itineraries you’ve saved on your profile page. 
+DayTripper is a blogging app where users can search and upload itineraries for their favourite destinations. Each itinerary is for one day only (e.g. 24 hours in Milan) with recommendations for what to see and do (including where to eat and how to get around). The itineraries are tried and tested by fellow travellers (unlike AI-generated ideas) and can include local knowledge, anecdotes, and tips for those who like to stray off the beaten track.
 
 You can try it out here: https://daytripper-itinerary-planner.netlify.app/
 
 ### Brief
 
 
-This was my second project on the GA Software Engineering Bootcamp. Our brief was to build a Node/Express/MongoDB application with full CRUD that met the following criteria: 
+This was my second project on the General Assembly Software Engineering Bootcamp. Our brief was to build a MongoDB/Express/Node.js application with full CRUD functionality, EJS Templates, and session-based authentication. This felt like a great opportunity to build a blogging app to take advantage of MongoDB’s document-oriented data structure (which works well for this kind of content) and the possibility of handling real-time interactions with Node.js. 
 
-MVP
-
-	•	The app utilizes EJS Templates for rendering views to users.
-	•	The app uses session-based authentication.
-	•	The app’s files are organized following the conventions taught in lectures.
-	•	The app has at least one data entity in addition to the User model. At least one entity must have a relationship with the User model.
-	•	The app has full CRUD functionality.
-	•	Authorization is implemented in the app. Guest users (those not signed in) should not be able to create, update, or delete data in the application or access functionality allowing those actions.
-	•	The app is deployed online so that the rest of the world can use it.
+I wanted to make the app as visually appealing as possible so I used apps like Instagram as inspiration to create a colourful UI/UX design as well as an image upload feature to allow users to add photos to their itineraries. I also added “Like” and “Comment” features which involved adding conditional rendering to the individual itineraries. It was tricky to integrate these features at first but the solutions I found work well and I was able to deliver a full functional app by the deadline. 
 
 
+## Installation
 
-## Getting Started
+After the initial setup (Express, Mongoose, EJS), install the following packages to run the project locally: 
 
-After the initial setup (Express, Mongoose, EJS), you'll need to install the following packages: 
-
-For user authentication: 
+**User authentication**
 
 ```bash
 npm install bcrypt
-```
-
-```bash
 npm install express-session
-```
-
-```bash
 npm install connect-mongo
 ```
 
-
-For handling image uploads (cloud storage):
+**Image uploads (cloud storage)**
 
 ```bash
 npm install cloudinary
-```
-
-```bash
 npm install multer
-```
-
-```bash
 npm install streamifier
 ```
 
-For HTTP requests: 
+**HTTP requests & middleware**
 
 ```bash
 npm install morgan
-```
-
-```bash
 npm install method-override
 ```
 
