@@ -144,7 +144,7 @@ I then developed the views:
 #### 4) Image Upload
 
 
-To allow users to upload a profile picture and add images to their itineraries, I initially integrated the following third-party packages: 
+To allow users to upload a profile picture and add images to their itineraries, I integrated the following third-party packages: 
 
 - **Cloudinary** for image storage and delivery
 - **Multer** middleware to handle file uploads
@@ -181,7 +181,7 @@ I also limited the combined size of the files to 6 MB and added checks directly 
 
 #### 2) Image upload errors
 
-After deployment, the app crashed instead of displaying error messages when users tried to upload more than three images or exceeded the 6 MB limit. This was because the files were uploaded to Cloudinary through Netlify which terminated the connection if the file size exceeded the cap (100 MB for single files, 6 MB for payloads). 
+After deployment, the app crashed instead of displaying error messages when users tried to upload images that exceeded the 6 MB limit. This was because the files were uploaded to Cloudinary through Netlify which terminated the connection if the file size exceeded the cap (100 MB for single files, 6 MB for payloads). 
 
 To avoid this, it was necessary to bypass Netlify and upload images directly from the browser to the Cloudinary API using an Axios request:
 
@@ -201,19 +201,34 @@ I used optional chaining (e.g. req.session.user?._id) to track if the user was l
 
 ### Wins
 
-* Visually appealing UI/UX design inspired by travel magazines
-* intuitive navigation with the different features rendered based on the user’s logged status
-* Comments create a social / community aspect
+- Visually appealing UI/UX design inspired by travel magazine websites
+- Context-aware navigation, dynamically rendering different features based on the user’s authentication status
+- Community interaction through “Comments” and “Likes” to encourage user engagement
 
 
 ## Key Learnings
 
-Overall, this project went really well. I spent a lot of time planning the relationships, functionalities, and overall layout, which meant that the build was relatively straightforward. It was particularly helpful having the relationships mapped out before I started to code. This meant that there was less to fix during UAT (I asked around five people to test the app). 
+This project helped me gain a thorough understanding of the MEN stack and develop the practical skills needed to: 
+
+- Design and implement RESTful APIs using Express.js and Node.js
+- Use EJS Templates (with scriptlets and client-side script to render dynamic pages)
+- Implement session-based user authentication with cookies
+- integrate an external database (MongoDB) and manage CRUD operations
+- Model data relationships using references and/or embedded schemas
+
+I also became more comfortable with refactoring code and adapting my solutions when faced with new challenges or unexpected bugs. 
 
 
 ## Future Improvements
 
-The user profile is only visible to the user at the moment. As this is a social media app and intended to build a community, it would be better to have public profiles, too. I’d also like to display the most popular posts and give users bronze, silver or gold traveller status based on how many itineraries they have posted or how popular their itineraries are. 
+- Public user profiles
+- Private messaging feature
+- Most popular posts
+- Top contributors (showcase users who have posted the most or the most popular itineraries)
+- Improved UX with:
+	- additional user messaging and feedback
+	- more responsive design on mobile with a hamburger menu
+	- dark mode option
 
 
 
