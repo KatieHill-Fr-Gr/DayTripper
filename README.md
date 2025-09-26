@@ -131,8 +131,7 @@ I used bcrypt to hash the password on sign up and compare passwords when the use
 
 <img width="630" height="347" alt="DayTripper_sessionauthentication" src="https://github.com/user-attachments/assets/8db344ed-39c2-4b36-a5ba-9875fab985cd" />
 
-![DayTripper_usermiddleware](https://github.com/user-attachments/assets/3ea2b3a3-38da-440b-b37f-0748e10efe4d)
-
+<img width="658" height="717" alt="DayTripper_usermiddleware" src="https://github.com/user-attachments/assets/883c0c22-4b4d-4b3d-8fa4-048f5260e5d2" />
 
 I then developed the views:
 
@@ -144,7 +143,7 @@ I then developed the views:
 #### 4) Image Upload
 
 
-To allow users to upload a profile picture and add images to their itineraries, I integrated the following third-party packages: 
+To allow users to upload a profile picture and add images to their itineraries, I initially integrated the following third-party packages: 
 
 - **Cloudinary** for image storage and delivery
 - **Multer** middleware to handle file uploads
