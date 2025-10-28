@@ -202,6 +202,7 @@ router.get('/:itineraryId/edit', signedInUser, async (req, res, next) => {
     }
 })
 
+
 // Update
 
 router.put('/:itineraryId', signedInUser, upload.array('images', 3), async (req, res, next) => {
@@ -230,6 +231,7 @@ router.put('/:itineraryId', signedInUser, upload.array('images', 3), async (req,
         next(error)
     }
 })
+
 
 
 // Delete
@@ -271,8 +273,6 @@ router.post('/:itineraryId/liked-by/:userId', signedInUser, async (req, res, nex
         next(error)
     }
 })
-
-// Unlike
 
 router.delete('/:itineraryId/liked-by/:userId', signedInUser, async (req, res, next) => {
     try {

@@ -13,3 +13,13 @@ export default function cloudinaryUpload(fileBuffer) {
         streamifier.createReadStream(fileBuffer).pipe(stream)
     })
 }
+
+
+
+ // * Upload Cloudinary from frontend:
+
+ // 1) Create signture on backend (using the API secret key)
+ // 2) Store the Cloudinary URL on the backend
+ // 3) Add the axios call and image upload logic to the ejs template on the frontend
+
+ // Keep it unsigned

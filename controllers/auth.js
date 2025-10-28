@@ -25,6 +25,7 @@ router.get('/sign-up', async (req, res) => {
 
 // Create account
 
+
 router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
     try {
         if (req.body.username.trim() === '') {
@@ -77,7 +78,7 @@ router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
         }
         res.redirect('/auth/sign-up')
     }
-});
+})
 
 // Sign-in form
 
@@ -90,7 +91,7 @@ router.get('/sign-in', async (req, res) => {
     } catch (error) {
         return res.status(404).render('errors/404')
     }
-});
+})
 
 // Sign in
 
