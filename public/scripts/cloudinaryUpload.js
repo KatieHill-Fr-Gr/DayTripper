@@ -30,8 +30,6 @@ const uploadImage = async (file) => {
 const cloudinaryUpload = async (files) => {
     if (!userMessages) return
     userMessages.innerHTML = ''
-    // const files = [...e.target.files]
-    // const uploads = await Promise.all(files.map(file => uploadImage(file)))
     const uploads = await Promise.all([...files].map(uploadImage))
 
     uploads.forEach(result => {

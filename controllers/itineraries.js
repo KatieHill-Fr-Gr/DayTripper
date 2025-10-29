@@ -100,13 +100,16 @@ router.get('/africa', async (req, res, next) => {
 // Create
 
 router.post('/', signedInUser, async (req, res, next) => {
-
-            const newItinerary = await Itinerary.create(req.body)
-            res.redirect(`/itineraries/${newItinerary._id}`)
-
+    try {
+        const newItinerary = await Itinerary.create({
+            ...req.body,          
+            contributor: req.session.user._id
         })
-
-        // add try / catch here
+        res.redirect(`/itineraries/${newItinerary._id}`)
+    } catch (err) {
+        next(err)
+    }
+})
 
 
 
