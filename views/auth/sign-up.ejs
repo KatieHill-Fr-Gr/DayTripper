@@ -13,7 +13,7 @@
                         <%= message.text %>
                     </div>
                     <% } %>
-                        <form action="/auth/sign-up" method="POST" enctype="multipart/form-data">
+                        <form id="uploadForm" action="/auth/sign-up" method="POST">
                             <table>
                                 <tr>
                                     <td><label for="username">Username:</label></td>
@@ -31,11 +31,12 @@
                                     <td><label for="profileImage">Upload image:</label></td>
                                     <td>
                                         <div class="file-upload-wrapper">
-                                            <input type="file" name="profileImage" id="profileImage" accept="image/*">
-                                            <label for="profileImage" class="custom-file-upload">
+                                            <input type="file" name="upload-files" id="image" accept="image/*">
+                                            <label for="image" class="custom-file-upload">
                                                 <span class="file-name" id="file-name"></span>
                                             </label>
                                         </div>
+                                        <div id="uploadMessages"></div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -52,20 +53,27 @@
             </main>
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
-                    const fileInput = document.getElementById('profileImage');
-                    const fileNameDisplay = document.getElementById('file-name');
-                    const label = document.querySelector('.custom-file-upload');
+                    const fileInput = document.getElementById('image')
+                    const fileNameDisplay = document.getElementById('file-name')
+                    const label = document.querySelector('.custom-file-upload')
+
+                    if (!fileInput) return
 
                     fileInput.addEventListener('change', function () {
                         if (this.files && this.files.length > 0) {
-                            fileNameDisplay.textContent = this.files[0].name;
-                            label.classList.add('has-file');
+                            const fileNames = Array.from(this.files).map(file => file.name).join(', ')
+                            fileNameDisplay.textContent = fileNames
+                            label.classList.add('has-file')
                         } else {
-                            fileNameDisplay.textContent = 'No files chosen';
-                            label.classList.remove('has-file');
+                            fileNameDisplay.textContent = 'No files chosen'
+                            label.classList.remove('has-file')
                         }
-                    });
-                });
+
+                        if (typeof cloudinaryUpload === 'function') {
+                            cloudinaryUpload(this.files, 'profileImage')
+                        }
+                    })
+                })
             </script>
     </body>
 

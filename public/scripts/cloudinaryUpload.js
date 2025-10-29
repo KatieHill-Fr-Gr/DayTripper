@@ -1,5 +1,4 @@
 const fileInput = document.getElementById('image')
-const userMessages = document.getElementById('uploadMessages')
 
 // Note: Unsigned upload for demo purposes only
 const URL = 'https://api.cloudinary.com/v1_1/dh0z1a9nd/image/upload'
@@ -27,7 +26,8 @@ const uploadImage = async (file) => {
 }
 
 
-const cloudinaryUpload = async (files) => {
+const cloudinaryUpload = async (files, inputName = 'images') => {
+    const userMessages = document.getElementById('uploadMessages')
     if (!userMessages) return
     userMessages.innerHTML = ''
 
@@ -44,7 +44,7 @@ const cloudinaryUpload = async (files) => {
 
             const input = document.createElement('input')
             input.type = 'hidden'
-            input.name = 'images'
+            input.name = inputName
             input.value = result.url
             form.appendChild(input)
         }

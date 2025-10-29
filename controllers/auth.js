@@ -26,32 +26,29 @@ router.get('/sign-up', async (req, res) => {
 // Create account
 
 
-router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
+router.post('/sign-up', async (req, res) => {
     try {
-        if (req.body.username.trim() === '') {
+
+        const { username, password, confirmPassword, profileImage } = req.body
+
+
+        if (username.trim() === '') {
             throw new Error('Username is required')
         }
-        if (req.body.password.trim() === '') {
+        if (password.trim() === '') {
             throw new Error('Password is required')
         }
         const userInDatabase = await User.findOne({ username: req.body.username })
         if (userInDatabase) {
             throw new Error('Username already exists')
         }
-        if (req.body.password !== req.body.confirmPassword) {
+        if (password !== confirmPassword) {
             throw new Error('Passwords must match')
         }
         const hashedPassword = bcrypt.hashSync(req.body.password, 10)
-        req.body.password = hashedPassword;
+        req.body.password = hashedPassword
 
-        if (req.file && req.file.buffer) {
-            console.log("uploading")
-            const result = await cloudinaryUpload(req.file.buffer);
-            req.body.profileImage = result.secure_url;
-        } else {
-            console.error('Cloudinary upload failed')
-            req.body.profileImage = 'https://ui-avatars.com/api/?name='+ req.body.username[0];
-        }
+        req.body.profileImage = profileImage || `https://ui-avatars.com/api/?name=${username[0]}`
 
         const user = await User.create(req.body)
 
