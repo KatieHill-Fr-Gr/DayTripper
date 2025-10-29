@@ -102,7 +102,8 @@ router.get('/africa', async (req, res, next) => {
 router.post('/', signedInUser, async (req, res, next) => {
     try {
         const newItinerary = await Itinerary.create({
-            ...req.body,          
+            ...req.body,
+            images: req.body.images,           
             contributor: req.session.user._id
         })
         res.redirect(`/itineraries/${newItinerary._id}`)

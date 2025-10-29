@@ -30,6 +30,8 @@ const uploadImage = async (file) => {
 const cloudinaryUpload = async (files) => {
     if (!userMessages) return
     userMessages.innerHTML = ''
+
+    const form = document.getElementById('uploadForm')
     const uploads = await Promise.all([...files].map(uploadImage))
 
     uploads.forEach(result => {
@@ -39,6 +41,12 @@ const cloudinaryUpload = async (files) => {
             
         } else {
             message.textContent = `${result.fileName} successfully uploaded`
+
+            const input = document.createElement('input')
+            input.type = 'hidden'
+            input.name = 'images'
+            input.value = result.url
+            form.appendChild(input)
         }
         userMessages.appendChild(message)
     })
