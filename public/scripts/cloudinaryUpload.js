@@ -1,7 +1,7 @@
 const fileInput = document.getElementById('image')
 const userMessages = document.getElementById('uploadMessages')
 
-// Note: This is an unsigned upload for demo purposes only
+// Note: Unsigned upload for demo purposes only
 const URL = 'https://api.cloudinary.com/v1_1/dh0z1a9nd/image/upload'
 
 const uploadImage = async (file) => {
@@ -19,32 +19,30 @@ const uploadImage = async (file) => {
             throw new Error(`Upload failed with status ${response.status}`)
         }
 
-        return response.json()
-
+        const data = await response.json()
+        return { success: true, url: data.secure_url, fileName: file.name }
     } catch (error) {
-    console.log('Error uploading file'. error)
-    return { error: error.message }
-        }
+            return { success: false, error: error.message, fileName: file.name }
+    }
 }
 
 
-const upload = async (e) => {
+const cloudinaryUpload = async (files) => {
+    if (!userMessages) return
     userMessages.innerHTML = ''
-    const files = [...e.target.files]
-    const uploads = await Promise.all(files.map(file => uploadImage(file)))
+    // const files = [...e.target.files]
+    // const uploads = await Promise.all(files.map(file => uploadImage(file)))
+    const uploads = await Promise.all([...files].map(uploadImage))
 
     uploads.forEach(result => {
         const message = document.createElement('p')
         if (result.error) {
-            message.textContent = `Failed to upload  ${result.fileName} || 'file'`
+            message.textContent = `Failed to upload ${result.fileName}`
             
         } else {
-            message.textContent = `${result.fileName} || 'file' successfully uploaded`
+            message.textContent = `${result.fileName} successfully uploaded`
         }
+        userMessages.appendChild(message)
     })
 
-    console.log(uploads)
-
 }
-
-fileInput.addEventListener('change', upload)
