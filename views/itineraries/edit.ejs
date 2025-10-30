@@ -64,9 +64,7 @@
                             label.classList.remove('has-file')
                         }
 
-                        if (typeof cloudinaryUpload === 'function') {
-                            cloudinaryUpload(this.files, 'images')
-                        }
+                        cloudinaryUpload(this.files, 'images', true)
                     })
                 })
             </script> 
