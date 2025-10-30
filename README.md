@@ -173,20 +173,16 @@ I wanted to display the file names in the form when the user uploaded their prof
 
 <img width="589" height="376" alt="DayTripper_FileUpload" src="https://github.com/user-attachments/assets/5c9d16e1-1bfc-47fb-9a68-33c4e314bf97" />
 
-I also limited the combined size of the files to 6 MB and added checks directly to the CREATE route (which throw errors if more than 3 files are uploaded or if the total upload exceeds 6 MB): 
-
-<img width="1920" height="1080" alt="DayTripper_FileSizeLimit" src="https://github.com/user-attachments/assets/13200a58-f55d-4cac-ac2e-0654c745e8c3" />
-
-
 #### 2) Image upload errors
 
 After deployment, the app crashed when users tried to upload images that exceeded Netlify’s file size limit (Netlify terminates the connection if the file size exceeds the 100 MB for single files and 6 MB for payloads). 
 
 To fix this, I refactored the code to bypass the server and upload images directly from the browser to the Cloudinary API (which has a more generous file size limit). I replaced the existing helper functions (cloudinary.js and cloudinaryUpload.js) with two new functions and added this script to the HTML head to handle the direct uploads: 
 
-[image here]
+<img width="638" height="975" alt="DayTripper_cloudinaryjs" src="https://github.com/user-attachments/assets/90414ffa-f495-42fe-803b-a96e5960fd6e" />
 
-I then refactored the EJS forms (to create and edit itineraries and user profiles) as well as the controller routes so that the files could be uploaded to Cloudinary and sent to the server via hidden input: 
+
+I then refactored the EJS forms (to create and edit itineraries and user profiles) as well as the controller routes so that the files could be uploaded to Cloudinary and sent to the server via hidden input.
 
 
 This approach simplified the codebase (no need for server-side middleware like multer or streamifier anymore) and ensured a more user-friendly experience. 
