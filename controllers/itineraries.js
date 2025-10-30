@@ -3,10 +3,6 @@ const router = express.Router()
 
 import Itinerary from '../models/itinerary.js'
 import signedInUser from "../middleware/signed-in-user.js"
-import { upload } from '../utilities/cloudinary.js'
-import cloudinaryUpload from '../utilities/cloudinaryUpload.js'
-import multer from "multer"
-
 
 
 // * Routes
@@ -182,7 +178,7 @@ router.get('/:itineraryId/edit', signedInUser, async (req, res, next) => {
 
 // Update
 
-router.put('/:itineraryId', signedInUser, upload.array('images', 3), async (req, res, next) => {
+router.put('/:itineraryId', signedInUser, async (req, res, next) => {
     try {
         const { itineraryId } = req.params
         const itineraryToUpdate = await Itinerary.findById(itineraryId)
