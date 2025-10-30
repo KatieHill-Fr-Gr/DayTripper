@@ -180,7 +180,7 @@ I also limited the combined size of the files to 6 MB and added checks directly 
 
 #### 2) Image upload errors
 
-After deployment, the app crashed when users tried to upload images that exceeded Netlify’s file size limit (Netlify terminates the connection if the file size exceeded the 100 MB for single files and 6 MB for payloads). 
+After deployment, the app crashed when users tried to upload images that exceeded Netlify’s file size limit (Netlify terminates the connection if the file size exceeds the 100 MB for single files and 6 MB for payloads). 
 
 To fix this, I refactored the code to bypass the server and upload images directly from the browser to the Cloudinary API (which has a more generous file size limit). I replaced the existing helper functions (cloudinary.js and cloudinaryUpload.js) with two new functions and added this script to the HTML head to handle the direct uploads: 
 
@@ -190,6 +190,9 @@ I then refactored the EJS forms (to create and edit itineraries and user profile
 
 
 This approach simplified the codebase (no need for server-side middleware like multer or streamifier anymore) and ensured a more user-friendly experience. 
+
+
+
 
 
 
