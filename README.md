@@ -53,13 +53,6 @@ npm install express-session
 npm install connect-mongo
 ```
 
-**Image uploads (cloud storage)**
-
-```bash
-npm install cloudinary
-npm install axios
-```
-
 **HTTP requests & middleware**
 
 ```bash
