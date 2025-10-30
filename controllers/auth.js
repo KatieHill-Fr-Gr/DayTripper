@@ -25,39 +25,42 @@ router.get('/sign-up', async (req, res) => {
 
 // Create account
 
-router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
+router.post('/sign-up', async (req, res) => {
     try {
-        if (req.body.username.trim() === '') {
+
+        const { username, password, confirmPassword } = req.body
+
+
+        if (username.trim() === '') {
             throw new Error('Username is required')
         }
-        if (req.body.password.trim() === '') {
+        if (password.trim() === '') {
             throw new Error('Password is required')
         }
         const userInDatabase = await User.findOne({ username: req.body.username })
         if (userInDatabase) {
             throw new Error('Username already exists')
         }
-        if (req.body.password !== req.body.confirmPassword) {
+        if (password !== confirmPassword) {
             throw new Error('Passwords must match')
         }
         const hashedPassword = bcrypt.hashSync(req.body.password, 10)
-        req.body.password = hashedPassword;
+        req.body.password = hashedPassword
 
-        if (req.file && req.file.buffer) {
-            console.log("uploading")
-            const result = await cloudinaryUpload(req.file.buffer);
-            req.body.profileImage = result.secure_url;
-        } else {
-            console.error('Cloudinary upload failed')
-            req.body.profileImage = 'https://ui-avatars.com/api/?name='+ req.body.username[0];
-        }
+        const profileImage = req.body.profileImage || `https://ui-avatars.com/api/?name=${username[0]}`
 
-        const user = await User.create(req.body)
+        console.log('REQ.BODY AT SIGN-UP:', req.body)
+
+        const user = await User.create({
+            username,
+            password: hashedPassword,
+            profileImage,
+        })
 
         req.session.user = {
             username: user.username,
             _id: user._id,
-            profileImage: user.profileImage
+            profileImage: user.profileImage,
         }
 
         req.session.message = {
@@ -77,7 +80,7 @@ router.post('/sign-up', upload.single('profileImage'), async (req, res) => {
         }
         res.redirect('/auth/sign-up')
     }
-});
+})
 
 // Sign-in form
 
@@ -90,7 +93,7 @@ router.get('/sign-in', async (req, res) => {
     } catch (error) {
         return res.status(404).render('errors/404')
     }
-});
+})
 
 // Sign in
 

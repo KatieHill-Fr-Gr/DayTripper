@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<% include("../partials/head.ejs") %>
+<%- include("../partials/head.ejs") %>
 
     <body>
         <%- include("../partials/nav.ejs") %>
@@ -16,7 +16,7 @@
                         <%= message.text %>
                     </div>
                     <% } %>
-                        <form action="/itineraries" method="POST" enctype="multipart/form-data">
+                        <form id="uploadForm" action="/itineraries" method="POST">
                             <div>
                                 <label for="destination">Destination</label>
                                 <input type="text" name="destination" id="name" required
@@ -46,31 +46,38 @@
                                 <textarea id="evening" name="evening" required><%= formData.evening || '' %></textarea>
                             </div>
                             <div class="file-upload-wrapper">
-                                <input type="file" name="images" id="image" accept="image/*" multiple>
+                                <input type="file" name="upload-files" id="image" accept="image/*" multiple>
                                 <label for="image" class="custom-file-upload">
                                     <span class="file-name" id="file-name"></span>
                                 </label>
                             </div>
+                            <div id="uploadMessages"></div>
                             <button type="submit" class="page-button">Publish</button>
                         </form>
             </main>
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
-                    const fileInput = document.getElementById('image');
-                    const fileNameDisplay = document.getElementById('file-name');
-                    const label = document.querySelector('.custom-file-upload');
+                    const fileInput = document.getElementById('image')
+                    const fileNameDisplay = document.getElementById('file-name')
+                    const label = document.querySelector('.custom-file-upload')
+
+                    if (!fileInput) return
 
                     fileInput.addEventListener('change', function () {
                         if (this.files && this.files.length > 0) {
-                            const fileNames = Array.from(this.files).map(file => file.name).join(', ');
-                            fileNameDisplay.textContent = fileNames;
-                            label.classList.add('has-file');
+                            const fileNames = Array.from(this.files).map(file => file.name).join(', ')
+                            fileNameDisplay.textContent = fileNames
+                            label.classList.add('has-file')
                         } else {
-                            fileNameDisplay.textContent = 'No files chosen';
-                            label.classList.remove('has-file');
+                            fileNameDisplay.textContent = 'No files chosen'
+                            label.classList.remove('has-file')
                         }
-                    });
-                });
+
+           
+                        cloudinaryUpload(this.files, 'images', true)
+                    
+                    })
+                })
             </script>
     </body>
 

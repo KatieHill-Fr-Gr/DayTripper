@@ -100,40 +100,17 @@ router.get('/africa', async (req, res, next) => {
 // Create
 
 router.post('/', signedInUser, async (req, res, next) => {
-    upload.array('images', 3)(req, res, async (err) => {
-        try {
-            if (err) {
-                req.session.message = { type: 'error', text: 'You can only upload up to 3 images per itinerary' }
-                req.session.formData = req.body
-                return req.session.save(() => res.redirect('/itineraries/new'))
-            }
-
-            req.body.contributor = req.session.user._id;
-
-            if (req.files && req.files.length > 0) {
-                const totalSize = req.files.reduce((sum, file) => sum + file.size, 0)
-                if (totalSize > 6 * 1024 * 1024) {
-                    req.session.message = { type: 'error', text: 'Files exceed 6 MB' }
-                    req.session.formData = req.body
-                    return req.session.save(() => res.redirect('/itineraries/new'));
-                }
-
-                const results = await Promise.all(req.files.map(file => cloudinaryUpload(file.buffer)))
-                req.body.images = results.map(result => result.secure_url)
-            } else {
-                req.body.images = []
-            }
-
-            const newItinerary = await Itinerary.create(req.body)
-            res.redirect(`/itineraries/${newItinerary._id}`)
-
-        } catch (error) {
-            console.error(error)
-            req.session.message = { type: 'error', text: error.message }
-            req.session.formData = req.body
-            req.session.save(() => res.redirect('/itineraries/new'))
-        }
-    })
+    console.log(req.body)
+    try {
+        const newItinerary = await Itinerary.create({
+            ...req.body,
+            images: req.body.images,           
+            contributor: req.session.user._id
+        })
+        res.redirect(`/itineraries/${newItinerary._id}`)
+    } catch (err) {
+        next(err)
+    }
 })
 
 
@@ -202,6 +179,7 @@ router.get('/:itineraryId/edit', signedInUser, async (req, res, next) => {
     }
 })
 
+
 // Update
 
 router.put('/:itineraryId', signedInUser, upload.array('images', 3), async (req, res, next) => {
@@ -213,15 +191,6 @@ router.put('/:itineraryId', signedInUser, upload.array('images', 3), async (req,
             return res.status(403).send('You are not authorized to edit this itinerary')
         }
 
-        if (req.files && req.files.length > 0) {
-            const results = await Promise.all(
-                req.files.map(file => cloudinaryUpload(file.buffer))
-            )
-            req.body.images = results.map(result => result.secure_url)
-        } else {
-            delete req.body.images;
-        }
-
         await Itinerary.findByIdAndUpdate(itineraryId, req.body)
 
         return res.redirect(`/itineraries/${itineraryId}`)
@@ -230,6 +199,7 @@ router.put('/:itineraryId', signedInUser, upload.array('images', 3), async (req,
         next(error)
     }
 })
+
 
 
 // Delete
@@ -271,8 +241,6 @@ router.post('/:itineraryId/liked-by/:userId', signedInUser, async (req, res, nex
         next(error)
     }
 })
-
-// Unlike
 
 router.delete('/:itineraryId/liked-by/:userId', signedInUser, async (req, res, next) => {
     try {
