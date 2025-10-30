@@ -21,12 +21,13 @@ const uploadImage = async (file) => {
         const data = await response.json()
         return { success: true, url: data.secure_url, fileName: file.name }
     } catch (error) {
-            return { success: false, error: error.message, fileName: file.name }
+        return { success: false, error: error.message, fileName: file.name }
     }
 }
 
 
-const cloudinaryUpload = async (files, inputName = 'images') => {
+const cloudinaryUpload = async (files, fieldName, multiple = false) => {
+    console.log(files)
     const userMessages = document.getElementById('uploadMessages')
     if (!userMessages) return
     userMessages.innerHTML = ''
@@ -38,14 +39,15 @@ const cloudinaryUpload = async (files, inputName = 'images') => {
         const message = document.createElement('p')
         if (result.error) {
             message.textContent = `Failed to upload ${result.fileName}`
-            
+
         } else {
             message.textContent = `${result.fileName} successfully uploaded`
 
             const input = document.createElement('input')
             input.type = 'hidden'
-            input.name = inputName
+            input.name = `${fieldName}`
             input.value = result.url
+
             form.appendChild(input)
         }
         userMessages.appendChild(message)

@@ -100,6 +100,7 @@ router.get('/africa', async (req, res, next) => {
 // Create
 
 router.post('/', signedInUser, async (req, res, next) => {
+    console.log(req.body)
     try {
         const newItinerary = await Itinerary.create({
             ...req.body,
