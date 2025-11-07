@@ -367,7 +367,25 @@ This approach simplified the codebase (no need for server-side middleware like m
 
 When working on the "save" and "comment" features, I also had to find a solution for how to display these on the page (or display nothing if no one had commented or saved that particular itinerary), and allow the user to unsave the itinerary or delete their own comments: 
 
-<img width="586" height="224" alt="DayTripper_UserInteractions" src="https://github.com/user-attachments/assets/81a10242-c2aa-4c0b-8193-34a1b2e819f9" />
+```
+        const userId = req.session.user?._id;
+
+        const userHasLiked = userId
+            ? itinerary.likedbyUsers.some(likedId => likedId.equals(userId))
+            : false;
+
+        const userHasCommented = userId
+            ? itinerary.comments.some(comment => comment.user.equals(userId))
+            : false;
+
+        return res.render('itineraries/show.ejs', {
+            title: `${itinerary._id}`,
+            itinerary,
+            userHasLiked,
+            userHasCommented
+        })
+
+```
 
 I used optional chaining (e.g. req.session.user?._id) to track if the user was logged in or not. This meant I could then check if the logged-in user had saved the itinerary or posted any of the comments using userHasLiked and userHasCommented.   
 
