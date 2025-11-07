@@ -205,7 +205,36 @@ To allow users to upload a profile picture and add images to their itineraries, 
 - **Multer** middleware to handle file uploads
 - **Streamifier** to covert the file buffer into a readable stream
 
-<img width="646" height="676" alt="DayTripper_imageupload" src="https://github.com/user-attachments/assets/c600e6c2-a974-477c-b3f6-ba189d1ffcc1" />
+```
+import { v2 as cloudinary } from "cloudinary"
+import multer from "multer"
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+const upload = multer({ storage: multer.memoryStorage() })
+```
+
+```
+import { cloudinary } from './cloudinary.js'
+import streamifier from 'streamifier'
+
+export default function cloudinaryUpload(fileBuffer) {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            { folder: 'profile-images' },
+            (err, result) => {
+                if (result) resolve(result)
+                    else reject(err)
+            }
+        )
+        streamifier.createReadStream(fileBuffer).pipe(stream)
+    })
+}
+```
 
 With this setup, files were sent to Cloudinary via the backend (Node.js server). However, this was refactored later after deploying the app via Netlify (see *Challenges* below) to avoid server upload limits. 
 
@@ -217,8 +246,25 @@ I added the attributes `accept=“image/*”` and `multiple` to the file input f
 
 I implemented new routes using POST and DELETE methods to allow users to like or unlike itineraries and post or delete comments. I used req.params to identify the individual itinerary, user, and comment. I also used the signedInUser middleware to ensure that only logged-in users could perform these actions, and also checked the session user ID against the author ID to authorise deletion. 
 
-<img width="634" height="732" alt="DayTripper_Likes" src="https://github.com/user-attachments/assets/8c9dc41f-83a1-4000-b703-ddb087a37bb3" />
+```
+router.post('/:itineraryId/liked-by/:userId', signedInUser, async (req, res, next) => {
+    try {
+        const { itineraryId, userId } = req.params
 
+        if (req.session.user._id !== userId) {
+            return res.status(403).send('You are not authorized to save this itinerary')
+        }
+
+        await Itinerary.findByIdAndUpdate(itineraryId, {
+            $push: { likedbyUsers: userId }
+        })
+
+        return res.redirect(`/itineraries/${itineraryId}`)
+    } catch (error) {
+        next(error)
+    }
+})
+```
 
 ### Challenges
 
@@ -227,7 +273,26 @@ I implemented new routes using POST and DELETE methods to allow users to like or
 
 I wanted to display the file names in the form when the user uploaded their profile photo during sign up and when uploading photos to accompany each itinerary. I used the DOM to achieve this: 
 
-<img width="589" height="376" alt="DayTripper_FileUpload" src="https://github.com/user-attachments/assets/5c9d16e1-1bfc-47fb-9a68-33c4e314bf97" />
+```
+                document.addEventListener("DOMContentLoaded", function () {
+                    const fileInput = document.getElementById('image')
+                    const fileNameDisplay = document.getElementById('file-name')
+                    const label = document.querySelector('.custom-file-upload')
+
+                    if (!fileInput) return
+
+                    fileInput.addEventListener('change', function () {
+                        if (this.files && this.files.length > 0) {
+                            const fileNames = Array.from(this.files).map(file => file.name).join(', ')
+                            fileNameDisplay.textContent = fileNames
+                            label.classList.add('has-file')
+                        } else {
+                            fileNameDisplay.textContent = 'No files chosen'
+                            label.classList.remove('has-file')
+                        }
+
+
+```
 
 #### 2) Image upload errors
 
@@ -235,15 +300,65 @@ After deployment, the app crashed when users tried to upload images that exceede
 
 To fix this, I refactored the code to bypass the server and upload images directly from the browser to the Cloudinary API (which has a more generous file size limit). I replaced the existing helper functions (cloudinary.js and cloudinaryUpload.js) with two new functions and added this script to the HTML head to handle the direct uploads: 
 
-<img width="638" height="975" alt="DayTripper_cloudinaryjs" src="https://github.com/user-attachments/assets/90414ffa-f495-42fe-803b-a96e5960fd6e" />
+```
+const uploadImage = async (file) => {
+    try {
+        const formData = new FormData()
+        formData.append("file", file)
+        formData.append("upload_preset", "DayTripper")
 
+        const response = await fetch(URL, {
+            method: "POST",
+            body: formData
+        })
+
+        if (!response.ok) {
+            throw new Error(`Upload failed with status ${response.status}`)
+        }
+
+        const data = await response.json()
+        return { success: true, url: data.secure_url, fileName: file.name }
+    } catch (error) {
+        return { success: false, error: error.message, fileName: file.name }
+    }
+}
+```
+
+```
+const cloudinaryUpload = async (files, fieldName, multiple = false) => {
+    console.log(files)
+    const userMessages = document.getElementById('uploadMessages')
+    if (!userMessages) return
+    userMessages.innerHTML = ''
+
+    const form = document.getElementById('uploadForm')
+    const uploads = await Promise.all([...files].map(uploadImage))
+
+    uploads.forEach(result => {
+        const message = document.createElement('p')
+        if (result.error) {
+            message.textContent = `Failed to upload ${result.fileName}`
+
+        } else {
+            message.textContent = `${result.fileName} successfully uploaded`
+
+            const input = document.createElement('input')
+            input.type = 'hidden'
+            input.name = `${fieldName}`
+            input.value = result.url
+
+            form.appendChild(input)
+        }
+        userMessages.appendChild(message)
+    })
+
+}
+```
 
 I then refactored the EJS forms (to create and edit itineraries and user profiles) as well as the controller routes so that the files could be uploaded to Cloudinary and sent to the server via hidden input.
 
 
 This approach simplified the codebase (no need for server-side middleware like multer or streamifier anymore) and ensured a more user-friendly experience. 
-
-
 
 
 
