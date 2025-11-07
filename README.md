@@ -117,8 +117,25 @@ I implemented full CRUD operations for the itineraries along with a global CSS f
 
 Once the basic app had been set up, I added a separate router for authentication (sign up, sign in, and sign out) and implemented checks to ensure that all required fields had been filled:
 
-<img width="640" height="356" alt="DayTripper_createaccount" src="https://github.com/user-attachments/assets/44b110c3-0882-49bc-8caa-cc248589171f" />
-
+```
+   try {
+        const { username, password, confirmPassword } = req.body
+        if (username.trim() === '') {
+            throw new Error('Username is required')
+        }
+        if (password.trim() === '') {
+            throw new Error('Password is required')
+        }
+        const userInDatabase = await User.findOne({ username: req.body.username })
+        if (userInDatabase) {
+            throw new Error('Username already exists')
+        }
+        if (password !== confirmPassword) {
+            throw new Error('Passwords must match')
+        }
+        const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+        req.body.password = hashedPassword
+```
 
 I used bcrypt to hash the password on sign up and compare passwords when the user signs in. I also implemented session-based authentication, saving the sessions to MongoDB and passing the user to the views using custom middleware: 
 
