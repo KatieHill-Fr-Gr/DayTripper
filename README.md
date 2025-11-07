@@ -139,9 +139,55 @@ Once the basic app had been set up, I added a separate router for authentication
 
 I used bcrypt to hash the password on sign up and compare passwords when the user signs in. I also implemented session-based authentication, saving the sessions to MongoDB and passing the user to the views using custom middleware: 
 
-<img width="630" height="347" alt="DayTripper_sessionauthentication" src="https://github.com/user-attachments/assets/8db344ed-39c2-4b36-a5ba-9875fab985cd" />
+```
+        const user = await User.create({
+            username,
+            password: hashedPassword,
+            profileImage,
+        })
 
-<img width="658" height="717" alt="DayTripper_usermiddleware" src="https://github.com/user-attachments/assets/883c0c22-4b4d-4b3d-8fa4-048f5260e5d2" />
+        req.session.user = {
+            username: user.username,
+            _id: user._id,
+            profileImage: user.profileImage,
+        }
+
+        req.session.message = {
+            type: 'success',
+            text: 'Welcome ',
+        }
+
+        req.session.save(() => {
+            res.redirect('/')
+        })
+```
+
+```
+const passUserToView = (req, res, next) => {
+  res.locals.user = req.session.user ? req.session.user : null;
+  next();
+};
+```
+
+```
+const signedInUser = (req, res, next) => {
+  if (req.session.user) return next();
+  req.session.redirectTo = req.originalUrl;
+  res.redirect("/auth/sign-in");
+};
+```
+
+```
+const userMessage = (req, res, next) => {
+  if (req.session.message) {
+    res.locals.message = req.session.message
+    req.session.message = null
+  } else {
+    res.locals.message = null
+  }
+  next()
+}
+```
 
 I then developed the views:
 
